@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Lato:wght@400;700;900&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  /* image-slot mounts via x-import inside a sized wrapper; make the slot fill it.
+     !important is needed to beat the component's own :host{display:inline-block} */
+  image-slot{ display:block !important; width:100% !important; height:100% !important; }
+  @keyframes drawRing{ from{ stroke-dashoffset:440; } }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(16px) rotate(-1deg); } to{ opacity:1; transform:translateY(0) rotate(0); } }
+  @keyframes pinPulse{ 0%,100%{ transform:translate(-50%,-50%) scale(1); opacity:.6; } 50%{ transform:translate(-50%,-50%) scale(1.5); opacity:.15; } }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#E7DBC1; color:#463524; font-family:'Lato',system-ui,sans-serif; padding:52px 40px 130px; background-image:radial-gradient(circle at 14% 9%, rgba(255,255,255,.45), transparent 38%), radial-gradient(circle at 88% 92%, rgba(120,90,55,.13), transparent 46%);">
+
+  <div style="max-width:1480px; margin:0 auto 40px;">
+    <div style="display:flex; align-items:center; gap:11px; margin-bottom:14px;">
+      <span style="width:34px; height:18px; background:#C77B5A; opacity:.8; transform:rotate(-6deg); border-radius:1px; box-shadow:0 1px 3px rgba(74,58,40,.2);"></span>
+      <span style="font-family:'Special Elite'; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:rgba(70,53,36,.6);">30 Under 30 · UX / UI Design Mockup</span>
+    </div>
+    <h1 style="font-family:'Caveat'; font-weight:700; font-size:58px; line-height:1; margin:0 0 14px; max-width:880px; color:#463524;">Part passport, part scoreboard, part love letter to the world.</h1>
+    <p style="margin:0; max-width:660px; color:rgba(70,53,36,.66); font-size:16px; line-height:1.6;">The flagship <strong style="color:#463524;">Together</strong> page of a couple's travel journal, shown at full fidelity. Flip between the shared race and each traveller's solo pages with the tabs — ink, map and souvenirs all respond live.</p>
+  </div>
+
+  <!-- ============ DESKTOP JOURNAL PAGE ============ -->
+  <div style="max-width:1480px; margin:0 auto;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding:0 6px;">
+      <span style="font-family:'Special Elite'; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:rgba(70,53,36,.5);">Desktop · 1440</span>
+      <span style="font-family:'Caveat'; font-weight:600; font-size:19px; color:rgba(70,53,36,.62);">{{ viewLabelLong }}</span>
+    </div>
+
+    <div style="position:relative;">
+      <!-- washi tape holding the page -->
+      <span style="position:absolute; top:-14px; left:64px; z-index:10; width:120px; height:32px; background:#A7B79A; opacity:.72; transform:rotate(-5deg); box-shadow:0 2px 5px rgba(74,58,40,.18); background-image:linear-gradient(90deg, rgba(255,255,255,.3), transparent 30%, rgba(255,255,255,.12));"></span>
+      <span style="position:absolute; top:-13px; right:78px; z-index:10; width:108px; height:30px; background:#D9B26A; opacity:.72; transform:rotate(4deg); box-shadow:0 2px 5px rgba(74,58,40,.18); background-image:linear-gradient(90deg, rgba(255,255,255,.3), transparent 30%, rgba(255,255,255,.12));"></span>
+
+      <div data-screen-label="Together — Desktop" style="position:relative; border-radius:6px; overflow:hidden; background:#F6EFDF; box-shadow:0 30px 70px -34px rgba(74,58,40,.55); background-image:radial-gradient(circle at 50% 0%, rgba(255,255,255,.5), transparent 55%), repeating-linear-gradient(90deg, rgba(120,95,60,.022) 0 2px, transparent 2px 4px);">
+      <div style="position:absolute; inset:9px; border:1.5px dashed rgba(74,58,40,.16); border-radius:3px; pointer-events:none; z-index:1;"></div>
+
+      <!-- NAV -->
+      <div style="position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; padding:18px 30px; border-bottom:1.5px dashed rgba(74,58,40,.2); background:rgba(216,199,163,.28);">
+        <div style="display:flex; align-items:center; gap:13px;">
+          <div style="position:relative; width:42px; height:42px; display:flex; align-items:center; justify-content:center; background:#FBF7EC; border:2px solid #463524; border-radius:7px; transform:rotate(-3deg);">
+            <span style="font-family:'Special Elite'; font-size:15px; color:#463524;">30</span>
+          </div>
+          <div style="display:flex; flex-direction:column; line-height:1.05;">
+            <span style="font-family:'Special Elite'; font-size:15px; letter-spacing:.04em; color:#463524;">UNDER 30</span>
+            <span style="font-family:'Caveat'; font-weight:600; font-size:17px; color:rgba(70,53,36,.62);">Bhavya &amp; Shraddha's travel journal</span>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:flex-end; gap:4px;">
+          <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="3">
+            <button onClick="{{ tab.onClick }}" style="border:none; cursor:pointer; font-family:'Special Elite'; font-size:12px; letter-spacing:.05em; padding:9px 20px; border-radius:9px 9px 3px 3px; transition:all .22s ease; background:{{ tab.bg }}; color:{{ tab.fg }}; transform:translateY({{ tab.lift }}); box-shadow:{{ tab.shadow }};">{{ tab.label }}</button>
+          </sc-for>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:11px;">
+          <div style="display:flex; flex-direction:column; align-items:flex-end; line-height:1.2;">
+            <span style="font-family:'Special Elite'; font-size:11px; color:#463524;">{{ levelLabel }}</span>
+            <span style="font-family:'Caveat'; font-weight:600; font-size:15px; color:rgba(70,53,36,.55);">{{ xpLabel }}</span>
+          </div>
+          <div style="position:relative; padding:7px 9px 8px; background:{{ accent }}; border-radius:5px; transform:rotate(2deg); box-shadow:0 3px 7px -2px rgba(74,58,40,.35);">
+            <span style="position:absolute; top:5px; left:50%; transform:translateX(-50%); width:6px; height:6px; border-radius:50%; background:rgba(74,58,40,.4);"></span>
+            <span style="font-family:'Lato'; font-weight:900; font-size:14px; color:#463524; display:block; margin-top:4px;">{{ avatarInitials }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div style="position:relative; z-index:2; padding:34px;">
+        <div style="display:grid; grid-template-columns:1.05fr 1fr; gap:28px; align-items:stretch;">
+
+          <!-- left -->
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div style="position:relative; align-self:flex-start; display:inline-flex; align-items:center; gap:10px; padding:9px 16px; background:#FBF7EC; border:1px solid rgba(74,58,40,.14); border-radius:4px; transform:rotate(-1.4deg); box-shadow:0 5px 12px -6px rgba(74,58,40,.3);">
+              <span style="position:absolute; top:-8px; left:24px; width:46px; height:16px; background:#C49BB0; opacity:.72; transform:rotate(-6deg);"></span>
+              <span style="display:flex;">
+                <span style="width:25px; height:25px; border-radius:50%; background:#92AEC6; border:2px solid #FBF7EC; display:flex; align-items:center; justify-content:center; font-family:'Lato'; font-size:11px; font-weight:900; color:#463524;">B</span>
+                <span style="width:25px; height:25px; border-radius:50%; background:#BBA0C6; border:2px solid #FBF7EC; margin-left:-9px; display:flex; align-items:center; justify-content:center; font-family:'Lato'; font-size:11px; font-weight:900; color:#463524;">S</span>
+              </span>
+              <span style="font-family:'Caveat'; font-weight:600; font-size:18px; color:rgba(70,53,36,.78);">Bhavya &amp; Shraddha · on a mission ♥</span>
+            </div>
+
+            <div>
+              <h2 style="font-family:'Caveat'; font-weight:700; font-size:64px; line-height:.92; margin:0; color:#463524;">{{ heroTitle }}</h2>
+              <p style="margin:10px 0 0; font-size:15.5px; color:rgba(70,53,36,.66); max-width:420px; line-height:1.55;">{{ heroSub }}</p>
+            </div>
+
+            <!-- shared progress -->
+            <div style="margin-top:2px;">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
+                <span style="font-family:'Special Elite'; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:rgba(70,53,36,.55);">Countries logged</span>
+                <span style="font-family:'Caveat'; font-weight:700; font-size:24px; color:#463524;"><span style="color:{{ accentInk }};">{{ visitedCount }}</span> of 30</span>
+              </div>
+              <div style="height:15px; border-radius:999px; background:#EAE0C8; border:1px solid rgba(74,58,40,.14); overflow:hidden; padding:2px;">
+                <div style="height:100%; width:{{ progressPct }}; border-radius:999px; background:{{ accent }}; background-image:repeating-linear-gradient(45deg, rgba(255,255,255,.18) 0 5px, transparent 5px 10px); transition:width .9s cubic-bezier(.2,.8,.2,1);"></div>
+              </div>
+            </div>
+
+            <!-- countdowns -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:6px;">
+              <dc-import name="CountdownCard" data="{{ cdB }}" hint-size="100%,130px"></dc-import>
+              <dc-import name="CountdownCard" data="{{ cdS }}" hint-size="100%,130px"></dc-import>
+            </div>
+          </div>
+
+          <!-- right: aged map + wax-seal progress -->
+          <div style="position:relative; border-radius:5px; overflow:hidden; background:#ECE1C4; border:1px solid rgba(74,58,40,.16); min-height:440px; box-shadow:inset 0 0 60px rgba(150,120,75,.22);">
+            <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(74,58,40,.13) 1px, transparent 1.4px); background-size:23px 23px; opacity:.5;"></div>
+
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+              <sc-for list="{{ mapLinks }}" as="lk" hint-placeholder-count="6">
+                <line x1="{{ lk.x1 }}" y1="{{ lk.y1 }}" x2="{{ lk.x2 }}" y2="{{ lk.y2 }}" stroke="#9A5A3E" stroke-width="0.32" stroke-dasharray="1.1 1.1" opacity="0.65"></line>
+              </sc-for>
+            </svg>
+
+            <sc-for list="{{ mapPins }}" as="pin" hint-placeholder-count="6">
+              <div style="position:absolute; left:{{ pin.left }}; top:{{ pin.top }}; transform:translate(-50%,-50%);">
+                <span style="position:absolute; left:50%; top:50%; width:16px; height:16px; border-radius:50%; background:#B0503C; opacity:.28; animation:pinPulse 3.4s ease-in-out infinite; animation-delay:{{ pin.delay }};"></span>
+                <span style="position:relative; display:block; width:11px; height:11px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:#B0503C; border:2px solid #FBF7EC;"></span>
+                <span style="position:absolute; left:15px; top:-6px; white-space:nowrap; font-family:'Caveat'; font-weight:600; font-size:14px; color:#463524; background:#FBF7EC; padding:1px 7px; border-radius:5px; border:1px solid rgba(74,58,40,.15); transform:rotate(-2deg);">{{ pin.flag }} {{ pin.name }}</span>
+              </div>
+            </sc-for>
+
+            <!-- wax-seal progress -->
+            <div style="position:absolute; right:18px; bottom:18px; width:124px; height:124px;">
+              <svg width="124" height="124" viewBox="0 0 160 160" style="transform:rotate(-90deg);">
+                <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(74,58,40,.16)" stroke-width="11"></circle>
+                <circle cx="80" cy="80" r="70" fill="none" stroke="{{ accentInk }}" stroke-width="11" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="{{ ringOffset }}" style="animation:drawRing 1.3s cubic-bezier(.2,.8,.2,1);"></circle>
+              </svg>
+              <div style="position:absolute; inset:20px; border-radius:50%; background:{{ accent }}; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:inset 0 0 0 3px rgba(255,255,255,.35), inset 0 4px 10px rgba(74,58,40,.2); transform:rotate(-4deg);">
+                <span style="font-family:'Caveat'; font-weight:700; font-size:34px; line-height:.8; color:#463524;">{{ visitedCount }}</span>
+                <span style="font-family:'Special Elite'; font-size:8px; letter-spacing:.1em; color:rgba(70,53,36,.7);">OF 30</span>
+              </div>
+            </div>
+
+            <span style="position:absolute; left:18px; top:16px; font-family:'Caveat'; font-weight:700; font-size:19px; color:#463524; background:#FBF7EC; padding:3px 11px; border-radius:5px; border:1px solid rgba(74,58,40,.15); transform:rotate(-2deg); box-shadow:0 3px 8px -4px rgba(74,58,40,.3);">the map so far ✈</span>
+          </div>
+        </div>
+
+        <!-- STATS · luggage tags -->
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:26px;">
+          <sc-for list="{{ stats }}" as="st" hint-placeholder-count="4">
+            <div style="position:relative; padding:16px 18px 16px 30px; border-radius:7px; background:#E4D2AE; border:1px solid rgba(74,58,40,.18); transform:rotate({{ st.rot }}); box-shadow:0 6px 14px -8px rgba(74,58,40,.4);">
+              <span style="position:absolute; left:11px; top:50%; transform:translateY(-50%); width:11px; height:11px; border-radius:50%; background:#F6EFDF; border:1.5px solid rgba(74,58,40,.4);"></span>
+              <div style="font-family:'Special Elite'; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:rgba(70,53,36,.6); margin-bottom:7px;">{{ st.label }}</div>
+              <div style="display:flex; align-items:baseline; gap:7px;">
+                <span style="font-family:'Lato'; font-weight:900; font-size:26px; line-height:1; color:#463524;">{{ st.value }}</span>
+                <span style="font-family:'Caveat'; font-weight:600; font-size:16px; color:rgba(70,53,36,.6);">{{ st.unit }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- CONTINENTS · postage stamps -->
+      <div style="position:relative; z-index:2; padding:4px 34px 28px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+          <span style="font-family:'Caveat'; font-weight:700; font-size:26px; color:#463524;">Continents unlocked</span>
+          <span style="flex:1; height:0; border-top:1.5px dashed rgba(74,58,40,.25);"></span>
+          <span style="font-family:'Special Elite'; font-size:10.5px; color:rgba(70,53,36,.55);">5 OF 6 · ANTARCTICA AWAITS</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:16px;">
+          <sc-for list="{{ continentBadges }}" as="cb" hint-placeholder-count="6">
+            <div style="padding:8px; border-radius:3px; text-align:center; background:#FBF7EC; transform:rotate({{ cb.rot }}); box-shadow:0 6px 13px -7px rgba(74,58,40,.4); opacity:{{ cb.opacity }};">
+              <div style="border:1.5px dashed {{ cb.dash }}; border-radius:2px; padding:13px 6px 11px;">
+                <div style="font-size:25px; margin-bottom:6px; filter:{{ cb.filter }};" data-comment-anchor="bcc41b09fb-div">{{ cb.emoji }}</div>
+                <div style="font-family:'Special Elite'; font-size:11px; color:{{ cb.nameColor }};">{{ cb.name }}</div>
+                <div style="font-family:'Caveat'; font-weight:600; font-size:14px; margin-top:2px; color:rgba(70,53,36,.6);">{{ cb.countLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- COUNTRY GRID · polaroids -->
+      <div style="position:relative; z-index:2; padding:8px 34px 30px;">
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:20px;">
+          <div>
+            <h3 style="font-family:'Caveat'; font-weight:700; font-size:34px; margin:0; line-height:1; color:#463524;">The collection</h3>
+            <p style="margin:4px 0 0; font-family:'Special Elite'; font-size:10.5px; letter-spacing:.04em; color:rgba(70,53,36,.55);">{{ visitedCount }} SOUVENIRS PASTED IN · {{ ghostLabel }} BLANK SPOTS LEFT</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-family:'Caveat'; font-weight:600; font-size:16px; color:rgba(70,53,36,.62);">
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:11px;height:11px;border-radius:50%;background:#B0503C;"></span>visited</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:11px;height:11px;border-radius:50%;border:2px dashed rgba(74,58,40,.35);"></span>blank</span>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:22px;">
+          <sc-for list="{{ gridCards }}" as="card" hint-placeholder-count="10">
+            <div onMouseEnter="{{ card.onEnter }}" onMouseLeave="{{ card.onLeave }}" style="position:relative; background:#FBF8F1; padding:9px 9px 0; border-radius:3px; transform:rotate({{ card.rot }}); box-shadow:0 12px 24px -12px rgba(74,58,40,.45), 0 2px 4px rgba(74,58,40,.16); transition:transform .25s cubic-bezier(.2,.8,.3,1), box-shadow .25s ease;" style-hover="transform:rotate(0deg) translateY(-8px); box-shadow:0 26px 44px -16px rgba(74,58,40,.5);">
+              <!-- washi tape -->
+              <span style="position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate({{ card.tapeRot }}); width:80px; height:23px; background:{{ card.tapeColor }}; opacity:.74; box-shadow:0 2px 4px rgba(74,58,40,.18); background-image:linear-gradient(90deg, rgba(255,255,255,.3), transparent 28%, rgba(255,255,255,.12)); z-index:4; pointer-events:none;"></span>
+
+              <div style="position:relative; aspect-ratio:1/1; overflow:hidden; background:#E4D8BE;">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ card.slotId }}" shape="rect" placeholder="{{ card.placeholder }}" hint-size="100%,100%" style="position:absolute; inset:0; width:100%; height:100%;"></x-import>
+
+                <!-- photo-mount corners -->
+                <span style="position:absolute; top:0; left:0; width:0; height:0; border-style:solid; border-width:14px 14px 0 0; border-color:rgba(74,58,40,.32) transparent transparent transparent; z-index:3; pointer-events:none;"></span>
+                <span style="position:absolute; bottom:0; right:0; width:0; height:0; border-style:solid; border-width:0 0 14px 14px; border-color:transparent transparent rgba(74,58,40,.32) transparent; z-index:3; pointer-events:none;"></span>
+
+                <span style="position:absolute; top:9px; left:9px; font-family:'Special Elite'; font-size:9px; padding:2px 7px; border-radius:3px; background:#FBF7EC; color:#463524; z-index:3; pointer-events:none;">No. {{ card.nn }}</span>
+
+                <!-- inked passport stamp on hover -->
+                <div style="position:absolute; top:8px; right:8px; width:62px; height:62px; transform:rotate(-14deg); opacity:{{ card.stampOpacity }}; transition:opacity .3s ease; z-index:3; pointer-events:none; border:2px solid #B0503C; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                  <span style="width:50px; height:50px; border:1px dashed #B0503C; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;">
+                    <span style="font-family:'Special Elite'; font-size:7px; letter-spacing:.06em; color:#B0503C;">VISITED</span>
+                    <span style="font-size:15px;">{{ card.flag }}</span>
+                    <span style="font-family:'Special Elite'; font-size:5.5px; letter-spacing:.04em; color:#B0503C;">{{ card.stampDate }}</span>
+                  </span>
+                </div>
+
+                <button onClick="{{ card.onClick }}" style="position:absolute; bottom:8px; right:8px; width:30px; height:30px; border-radius:50%; border:1.5px solid rgba(74,58,40,.2); background:#FBF7EC; color:#463524; cursor:pointer; font-size:13px; display:flex; align-items:center; justify-content:center; z-index:4;" title="Open souvenir">⤢</button>
+              </div>
+
+              <!-- caption strip -->
+              <div style="padding:9px 4px 12px;">
+                <div style="display:flex; align-items:baseline; gap:7px;" data-comment-anchor="6c33fda32b-div">
+                  <span style="font-size:17px; line-height:1;">{{ card.flag }}</span>
+                  <span style="font-family:'Caveat'; font-weight:700; font-size:22px; line-height:.9; color:#463524;">{{ card.name }}</span>
+                  <span style="margin-left:auto; font-family:'Special Elite'; font-size:8.5px; color:rgba(70,53,36,.5);">{{ card.month }}</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:7px; margin-top:5px;">
+                  <span style="display:inline-flex; align-items:center; gap:5px; font-family:'Caveat'; font-weight:600; font-size:14px; color:rgba(70,53,36,.7);"><span style="width:8px;height:8px;border-radius:50%;background:{{ card.contColor }};"></span>{{ card.continent }}</span>
+                  <span style="margin-left:auto; font-family:'Special Elite'; font-size:8px; letter-spacing:.04em; padding:2px 7px; border-radius:3px; background:{{ card.whoBg }}; color:{{ card.whoFg }};">{{ card.whoLabel }}</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+
+          <sc-for list="{{ ghostCards }}" as="g" hint-placeholder-count="20">
+            <div style="position:relative; background:rgba(251,248,241,.45); padding:9px 9px 0; border-radius:3px; transform:rotate({{ g.rot }}); border:1px dashed rgba(74,58,40,.22);">
+              <span style="position:absolute; top:-8px; left:50%; transform:translateX(-50%) rotate({{ g.tapeRot }}); width:60px; height:18px; background:rgba(74,58,40,.1); pointer-events:none;"></span>
+              <div style="position:relative; aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px; border:1.5px dashed rgba(74,58,40,.2);">
+                <span style="font-family:'Special Elite'; font-size:22px; color:rgba(74,58,40,.28);">?</span>
+                <span style="font-family:'Special Elite'; font-size:9px; color:rgba(74,58,40,.3);">No. {{ g.nn }}</span>
+              </div>
+              <div style="padding:9px 4px 12px;">
+                <span style="font-family:'Caveat'; font-weight:600; font-size:18px; color:rgba(74,58,40,.32);">somewhere new…</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- ACHIEVEMENTS + TRIP NOTES -->
+      <div style="position:relative; z-index:2; padding:8px 34px 40px; display:grid; grid-template-columns:1.3fr 1fr; gap:30px; align-items:start;">
+        <div>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+            <span style="font-family:'Caveat'; font-weight:700; font-size:26px; color:#463524;">Sticker badges</span>
+            <span style="flex:1; height:0; border-top:1.5px dashed rgba(74,58,40,.25);"></span>
+            <span style="font-family:'Special Elite'; font-size:10.5px; color:rgba(70,53,36,.55);">{{ achUnlocked }} EARNED</span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+            <sc-for list="{{ achievements }}" as="a" hint-placeholder-count="8">
+              <div style="position:relative; padding:15px 13px; border-radius:14px; text-align:center; background:{{ a.bg }}; border:2px solid {{ a.border }}; transform:rotate({{ a.rot }}); box-shadow:0 6px 14px -8px rgba(74,58,40,.4); opacity:{{ a.opacity }};">
+                <div style="font-size:26px; margin-bottom:7px; filter:{{ a.filter }};">{{ a.icon }}</div>
+                <div style="font-family:'Lato'; font-weight:900; font-size:12px; color:{{ a.titleColor }}; line-height:1.1;">{{ a.title }}</div>
+                <div style="font-family:'Caveat'; font-weight:600; font-size:14px; margin-top:3px; color:rgba(70,53,36,.6); line-height:1.05;">{{ a.cond }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+            <span style="font-family:'Caveat'; font-weight:700; font-size:26px; color:#463524;">Trip notes</span>
+            <span style="flex:1; height:0; border-top:1.5px dashed rgba(74,58,40,.25);"></span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <sc-for list="{{ funStats }}" as="f" hint-placeholder-count="4">
+              <div style="position:relative; display:flex; align-items:center; gap:13px; padding:13px 16px; border-radius:4px; background:#FBF8F1; border:1px solid rgba(74,58,40,.12); transform:rotate({{ f.rot }}); box-shadow:0 6px 14px -8px rgba(74,58,40,.35);">
+                <span style="position:absolute; top:-7px; left:18px; width:40px; height:15px; background:{{ f.tape }}; opacity:.7; transform:rotate(-5deg);"></span>
+                <div style="width:40px; height:40px; border-radius:9px; background:{{ accentPastel }}; display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0;">{{ f.icon }}</div>
+                <div style="line-height:1.2;">
+                  <div style="font-family:'Special Elite'; font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:rgba(70,53,36,.5);">{{ f.label }}</div>
+                  <div style="font-family:'Caveat'; font-weight:700; font-size:18px; color:#463524; margin-top:1px;">{{ f.value }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MOBILE + COMPONENT STATES ============ -->
+  <div style="max-width:1480px; margin:70px auto 0;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding:0 6px;">
+      <span style="font-family:'Special Elite'; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(70,53,36,.5);">Mobile · 390 &amp; component states</span>
+      <span style="font-family:'Caveat'; font-weight:600; font-size:18px; color:rgba(70,53,36,.6);">pocket edition</span>
+    </div>
+
+    <div style="display:flex; gap:46px; align-items:flex-start; flex-wrap:wrap;">
+
+      <!-- PHONE -->
+      <div data-screen-label="Together — Mobile" style="width:390px; flex-shrink:0; border-radius:48px; padding:12px; background:#C9B68E; border:2px solid #B8A476; box-shadow:0 30px 70px -34px rgba(74,58,40,.55);">
+        <div style="position:relative; border-radius:38px; overflow:hidden; background:#F6EFDF; height:790px; background-image:radial-gradient(circle at 50% 0%, rgba(255,255,255,.5), transparent 50%), repeating-linear-gradient(90deg, rgba(120,95,60,.02) 0 2px, transparent 2px 4px);">
+          <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:128px; height:26px; background:#C9B68E; border-bottom-left-radius:16px; border-bottom-right-radius:16px; z-index:5;"></div>
+
+          <div style="height:100%; overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:40px 20px 12px; border-bottom:1.5px dashed rgba(74,58,40,.2);">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <div style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; background:#FBF7EC; border:1.5px solid #463524; border-radius:6px; transform:rotate(-3deg);"><span style="font-family:'Special Elite'; font-size:12px; color:#463524;">30</span></div>
+                <span style="font-family:'Special Elite'; font-size:13px; color:#463524;">UNDER 30</span>
+              </div>
+              <div style="display:flex;"><span style="width:27px;height:27px;border-radius:50%;background:#92AEC6;border:2px solid #F6EFDF;display:flex;align-items:center;justify-content:center;font-family:'Lato';font-size:11px;font-weight:900;color:#463524;">B</span><span style="width:27px;height:27px;border-radius:50%;background:#BBA0C6;border:2px solid #F6EFDF;margin-left:-9px;display:flex;align-items:center;justify-content:center;font-family:'Lato';font-size:11px;font-weight:900;color:#463524;">S</span></div>
+            </div>
+
+            <div style="padding:14px 20px 14px;">
+              <h2 style="font-family:'Caveat'; font-weight:700; font-size:40px; line-height:.9; margin:0;">10 stamps,<br>20 to go.</h2>
+              <p style="margin:7px 0 14px; font-size:12.5px; color:rgba(70,53,36,.62); line-height:1.45;">Two passports, one race against thirty.</p>
+              <div style="height:14px; border-radius:999px; background:#EAE0C8; border:1px solid rgba(74,58,40,.14); overflow:hidden; padding:2px; margin-bottom:14px;"><div style="height:100%; width:33.3%; border-radius:999px; background:#A7B79A; background-image:repeating-linear-gradient(45deg, rgba(255,255,255,.18) 0 5px, transparent 5px 10px);"></div></div>
+              <div style="display:flex; gap:11px;">
+                <div style="flex:1; transform:rotate(-1.2deg); background:#FBF7EC; border:1px solid rgba(74,58,40,.14); border-radius:8px; padding:10px 11px; box-shadow:0 5px 11px -6px rgba(74,58,40,.35);"><div style="font-family:'Special Elite';font-size:7.5px;letter-spacing:.1em;color:#3F5C75;margin-bottom:4px;">✈ BHAVYA · 30</div><div style="font-family:'Lato';font-weight:900;font-size:25px;line-height:.9;color:#3F5C75;">263<span style="font-family:'Special Elite';font-size:8px;font-weight:400;color:rgba(70,53,36,.5);"> days</span></div></div>
+                <div style="flex:1; transform:rotate(1.1deg); background:#FBF7EC; border:1px solid rgba(74,58,40,.14); border-radius:8px; padding:10px 11px; box-shadow:0 5px 11px -6px rgba(74,58,40,.35);"><div style="font-family:'Special Elite';font-size:7.5px;letter-spacing:.1em;color:#6E4F7A;margin-bottom:4px;">✈ SHRADDHA · 30</div><div style="font-family:'Lato';font-weight:900;font-size:25px;line-height:.9;color:#463524;">377<span style="font-family:'Special Elite';font-size:8px;font-weight:400;color:rgba(70,53,36,.5);"> days</span></div></div>
+              </div>
+            </div>
+
+            <div style="padding:2px 20px; display:flex; flex-direction:column; gap:18px;">
+              <div style="position:relative; background:#FBF8F1; padding:9px 9px 0; border-radius:3px; transform:rotate(-1.6deg); box-shadow:0 12px 24px -12px rgba(74,58,40,.45);">
+                <span style="position:absolute; top:-8px; left:50%; transform:translateX(-50%) rotate(-5deg); width:74px; height:20px; background:#C49BB0; opacity:.74;"></span>
+                <div style="position:relative; height:150px; overflow:hidden; background:repeating-linear-gradient(135deg,#E4D8BE,#E4D8BE 11px,#DCCFB0 11px,#DCCFB0 22px); display:flex; align-items:center; justify-content:center;">
+                  <span style="font-family:'Special Elite';font-size:10px;letter-spacing:.1em;color:rgba(74,58,40,.35);">PORTUGAL · SOUVENIR</span>
+                  <span style="position:absolute; top:8px; left:8px; font-family:'Special Elite';font-size:8.5px;padding:2px 6px;border-radius:3px;background:#FBF7EC;color:#463524;">No. 10</span>
+                </div>
+                <div style="padding:8px 4px 11px; display:flex; align-items:baseline; gap:6px;"><span style="font-size:15px;">🇵🇹</span><span style="font-family:'Caveat';font-weight:700;font-size:21px;color:#463524;">Portugal</span><span style="margin-left:auto;font-family:'Special Elite';font-size:8px;color:#6E4F7A;">SHRADDHA SOLO</span></div>
+              </div>
+              <div style="position:relative; background:#FBF8F1; padding:9px 9px 0; border-radius:3px; transform:rotate(1.4deg); box-shadow:0 12px 24px -12px rgba(74,58,40,.45);">
+                <span style="position:absolute; top:-8px; left:50%; transform:translateX(-50%) rotate(4deg); width:74px; height:20px; background:#A7B79A; opacity:.74;"></span>
+                <div style="position:relative; height:150px; overflow:hidden; background:repeating-linear-gradient(135deg,#E4D8BE,#E4D8BE 11px,#DCCFB0 11px,#DCCFB0 22px); display:flex; align-items:center; justify-content:center;">
+                  <span style="font-family:'Special Elite';font-size:10px;letter-spacing:.1em;color:rgba(74,58,40,.35);">JAPAN · SOUVENIR</span>
+                  <span style="position:absolute; top:8px; left:8px; font-family:'Special Elite';font-size:8.5px;padding:2px 6px;border-radius:3px;background:#FBF7EC;color:#463524;">No. 09</span>
+                </div>
+                <div style="padding:8px 4px 11px; display:flex; align-items:baseline; gap:6px;"><span style="font-size:15px;">🇯🇵</span><span style="font-family:'Caveat';font-weight:700;font-size:21px;color:#463524;">Japan</span><span style="margin-left:auto;font-family:'Special Elite';font-size:8px;color:#5C6B49;">TOGETHER</span></div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:0; left:0; right:0; display:flex; align-items:flex-end; gap:4px; padding:10px 16px 22px; background:rgba(216,199,163,.4); border-top:1.5px dashed rgba(74,58,40,.2);">
+              <div style="flex:1; text-align:center; padding:9px; border-radius:8px 8px 3px 3px; background:#A7B79A; color:#463524; font-family:'Special Elite'; font-size:11px; transform:translateY(-2px); box-shadow:0 -2px 6px -2px rgba(74,58,40,.3);">Together</div>
+              <div style="flex:1; text-align:center; padding:9px; border-radius:8px 8px 3px 3px; color:rgba(70,53,36,.55); font-family:'Special Elite'; font-size:11px;">Bhavya</div>
+              <div style="flex:1; text-align:center; padding:9px; border-radius:8px 8px 3px 3px; color:rgba(70,53,36,.55); font-family:'Special Elite'; font-size:11px;">Shraddha</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATES -->
+      <div style="flex:1; min-width:380px; display:flex; flex-direction:column; gap:28px;">
+        <div>
+          <div style="font-family:'Caveat'; font-weight:700; font-size:22px; margin-bottom:14px; color:#463524;">Souvenir polaroid · resting → picked up</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px; padding-top:6px;">
+            <div style="position:relative; background:#FBF8F1; padding:9px 9px 0; border-radius:3px; transform:rotate(-2deg); box-shadow:0 12px 24px -12px rgba(74,58,40,.45);">
+              <span style="position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate(-5deg); width:80px; height:22px; background:#C77B5A; opacity:.74;"></span>
+              <div style="position:relative; aspect-ratio:1/1; overflow:hidden; background:repeating-linear-gradient(135deg,#E4D8BE,#E4D8BE 11px,#DCCFB0 11px,#DCCFB0 22px); display:flex; align-items:center; justify-content:center;">
+                <span style="font-family:'Special Elite';font-size:9px;color:rgba(74,58,40,.35);">SOUVENIR</span>
+                <span style="position:absolute;top:9px;left:9px;font-family:'Special Elite';font-size:9px;padding:2px 6px;border-radius:3px;background:#FBF7EC;color:#463524;">No. 04</span>
+              </div>
+              <div style="padding:9px 4px 12px; display:flex; align-items:baseline; gap:6px;"><span style="font-size:15px;">🇲🇦</span><span style="font-family:'Caveat';font-weight:700;font-size:21px;color:#463524;">Morocco</span></div>
+            </div>
+            <div style="position:relative; background:#FBF8F1; padding:9px 9px 0; border-radius:3px; transform:rotate(0deg) translateY(-8px); box-shadow:0 26px 44px -16px rgba(74,58,40,.5);">
+              <span style="position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate(3deg); width:80px; height:22px; background:#C77B5A; opacity:.74;"></span>
+              <div style="position:relative; aspect-ratio:1/1; overflow:hidden; background:repeating-linear-gradient(135deg,#E4D8BE,#E4D8BE 11px,#DCCFB0 11px,#DCCFB0 22px);">
+                <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Special Elite';font-size:9px;color:rgba(74,58,40,.35);">SOUVENIR</div>
+                <span style="position:absolute;top:9px;left:9px;font-family:'Special Elite';font-size:9px;padding:2px 6px;border-radius:3px;background:#FBF7EC;color:#463524;">No. 04</span>
+                <div style="position:absolute;top:8px;right:8px;width:58px;height:58px;transform:rotate(-14deg);border:2px solid #B0503C;border-radius:50%;display:flex;align-items:center;justify-content:center;"><span style="width:47px;height:47px;border:1px dashed #B0503C;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;"><span style="font-family:'Special Elite';font-size:6.5px;color:#B0503C;">VISITED</span><span style="font-size:14px;">🇲🇦</span></span></div>
+              </div>
+              <div style="padding:9px 4px 12px; display:flex; align-items:baseline; gap:6px;"><span style="font-size:15px;">🇲🇦</span><span style="font-family:'Caveat';font-weight:700;font-size:21px;color:#463524;">Morocco</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'Caveat'; font-weight:700; font-size:22px; margin-bottom:14px; color:#463524;">More states</div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+            <div style="padding:8px; border-radius:3px; text-align:center; background:#FBF7EC; transform:rotate(-2deg); box-shadow:0 6px 13px -7px rgba(74,58,40,.4); opacity:.65;">
+              <div style="border:1.5px dashed rgba(74,58,40,.3); border-radius:2px; padding:14px 6px;"><div style="font-size:25px;filter:grayscale(1);margin-bottom:6px;">🧊</div><div style="font-family:'Special Elite';font-size:11px;color:rgba(70,53,36,.5);">Antarctica</div><div style="font-family:'Caveat';font-weight:600;font-size:14px;color:rgba(70,53,36,.5);">locked</div></div>
+            </div>
+            <div style="padding:8px; border-radius:3px; text-align:center; background:#FBF7EC; transform:rotate(1.5deg); box-shadow:0 6px 13px -7px rgba(74,58,40,.4);" data-comment-anchor="c4e20d3d9a-div">
+              <div style="border:1.5px dashed #8E9F7E; border-radius:2px; padding:14px 6px;"><div style="font-size:25px;margin-bottom:6px;">🌍</div><div style="font-family:'Special Elite';font-size:11px;color:#463524;">Europe</div><div style="font-family:'Caveat';font-weight:600;font-size:14px;color:rgba(70,53,36,.6);">4 countries</div></div>
+            </div>
+            <div style="position:relative; background:rgba(251,248,241,.5); padding:8px 8px 0; border-radius:3px; transform:rotate(-1deg); border:1px dashed rgba(74,58,40,.22);">
+              <div style="aspect-ratio:1/1; border:1.5px dashed rgba(74,58,40,.2); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px;"><span style="font-family:'Special Elite';font-size:20px;color:rgba(74,58,40,.28);">?</span><span style="font-family:'Special Elite';font-size:8.5px;color:rgba(74,58,40,.3);">No. 21</span></div>
+              <div style="padding:7px 4px 9px;"><span style="font-family:'Caveat';font-weight:600;font-size:15px;color:rgba(74,58,40,.32);">blank spot</span></div>
+            </div>
+          </div>
+
+          <div style="margin-top:18px; margin-bottom:10px; font-family:'Caveat'; font-weight:700; font-size:18px; color:#463524;">Countdown ticket · final-stretch state <span style="font-family:'Special Elite'; font-size:9.5px; letter-spacing:.04em; color:rgba(70,53,36,.5);">(SAMPLE · UNDER 30 DAYS GOES STAMP-RED)</span></div>
+          <div style="position:relative; transform:rotate(-0.8deg); filter:drop-shadow(0 8px 15px rgba(74,58,40,.18));">
+            <div style="display:flex; background:#FBF7EC; border-radius:10px; overflow:hidden; border:1px solid rgba(74,58,40,.16);">
+              <div style="flex:1; padding:13px 16px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:7px;"><span style="font-family:'Special Elite';font-size:9px;letter-spacing:.12em;color:#B0503C;">✈ FINAL STRETCH</span><span style="font-family:'Special Elite';font-size:8.5px;color:rgba(74,58,40,.42);">under 30 days</span></div>
+                <div style="font-family:'Caveat';font-weight:700;font-size:21px;line-height:1;color:#463524;margin-bottom:5px;">Bhavya turns 30</div>
+                <div style="display:flex; align-items:flex-end; gap:7px;"><span style="font-family:'Lato';font-weight:900;font-size:33px;line-height:.85;color:#B0503C;">12</span><span style="font-family:'Special Elite';font-size:9.5px;color:rgba(74,58,40,.5);margin-bottom:4px;">days</span><span style="margin-left:auto;font-family:'Special Elite';font-size:10.5px;color:rgba(74,58,40,.5);margin-bottom:3px;">06:14:52</span></div>
+                <div style="height:13px;margin-top:10px;border-radius:1px;background:repeating-linear-gradient(90deg,#463524 0 1px,transparent 1px 3px,#463524 3px 5px,transparent 5px 6px,#463524 6px 8px,transparent 8px 11px);opacity:.5;"></div>
+              </div>
+              <div style="position:relative; width:0; border-left:2px dashed rgba(74,58,40,.28);"><span style="position:absolute;top:-7px;left:-7px;width:14px;height:14px;border-radius:50%;background:#E7DBC1;"></span><span style="position:absolute;bottom:-7px;left:-7px;width:14px;height:14px;border-radius:50%;background:#E7DBC1;"></span></div>
+              <div style="width:60px; background:#F4E2D8; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:8px 4px;"><span style="font-family:'Special Elite';font-size:7.5px;letter-spacing:.1em;color:#B0503C;">GATE 30</span><span style="font-family:'Lato';font-weight:900;font-size:23px;color:#B0503C;">12</span><span style="font-family:'Special Elite';font-size:7.5px;letter-spacing:.18em;color:rgba(74,58,40,.5);">DAYS</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ MODAL · journal spread ============ -->
+  <sc-if value="{{ modalCard }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed; inset:0; z-index:60; background:rgba(74,58,40,.5); display:flex; align-items:center; justify-content:center; padding:40px; animation:fadeUp .25s ease;">
+      <div onClick="{{ stopProp }}" style="position:relative; width:780px; max-width:100%; max-height:90vh; overflow:auto; border-radius:6px; background:#F6EFDF; box-shadow:0 40px 90px -30px rgba(74,58,40,.7); background-image:radial-gradient(circle at 50% 0%, rgba(255,255,255,.5), transparent 55%), repeating-linear-gradient(90deg, rgba(120,95,60,.02) 0 2px, transparent 2px 4px);">
+        <span style="position:absolute; top:-12px; left:50%; transform:translateX(-50%) rotate(-3deg); width:140px; height:30px; background:#D9B26A; opacity:.78; z-index:3; box-shadow:0 2px 5px rgba(74,58,40,.2);"></span>
+        <button onClick="{{ closeModal }}" style="position:absolute; top:16px; right:16px; z-index:5; width:38px; height:38px; border-radius:50%; border:1.5px solid rgba(74,58,40,.2); background:#FBF7EC; color:#463524; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px -4px rgba(74,58,40,.4);">×</button>
+
+        <div style="padding:34px 32px 30px; display:grid; grid-template-columns:300px 1fr; gap:26px; align-items:start;">
+          <!-- left: big polaroid -->
+          <div style="position:relative; background:#FBF8F1; padding:11px 11px 0; border-radius:3px; transform:rotate(-2.2deg); box-shadow:0 16px 32px -14px rgba(74,58,40,.5);">
+            <span style="position:absolute; top:-10px; left:50%; transform:translateX(-50%) rotate(-4deg); width:96px; height:26px; background:{{ modalCard.contColor }}; opacity:.7;"></span>
+            <div style="position:relative; aspect-ratio:1/1; overflow:hidden; background:#E4D8BE;">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ modalCard.sharedSlot }}" shape="rect" placeholder="Drop the shared souvenir photo" hint-size="100%,100%" style="position:absolute; inset:0; width:100%; height:100%;"></x-import>
+              <span style="position:absolute; top:0; left:0; width:0; height:0; border-style:solid; border-width:16px 16px 0 0; border-color:rgba(74,58,40,.3) transparent transparent transparent; z-index:2;"></span>
+            </div>
+            <div style="padding:10px 4px 14px; text-align:center;">
+              <span style="font-family:'Caveat'; font-weight:700; font-size:26px; color:#463524;">{{ modalCard.flag }} {{ modalCard.name }}</span>
+            </div>
+          </div>
+
+          <!-- right: diary entry -->
+          <div style="padding-top:6px;">
+            <div style="font-family:'Special Elite'; font-size:10px; letter-spacing:.1em; color:rgba(70,53,36,.55); margin-bottom:4px;">{{ modalCard.fullDate }} · {{ modalCard.whoLabel }}</div>
+            <h3 style="font-family:'Caveat'; font-weight:700; font-size:46px; margin:0 0 14px; line-height:.9; color:#463524;">Dear journal…</h3>
+            <p style="margin:0 0 22px; font-family:'Caveat'; font-weight:600; font-size:23px; line-height:1.3; color:#5A4836; max-width:380px;">"{{ modalCard.notes }}"</p>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px;">
+              <span style="display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:3px; background:#FBF7EC; border:1px dashed rgba(74,58,40,.3); font-family:'Special Elite'; font-size:9px; letter-spacing:.04em; color:#463524;"><span style="width:8px;height:8px;border-radius:50%;background:{{ modalCard.contColor }};"></span>{{ modalCard.continent }}</span>
+              <span style="padding:6px 12px; border-radius:3px; background:#F4E9CC; border:1px dashed rgba(150,110,40,.4); font-family:'Special Elite'; font-size:9px; letter-spacing:.04em; color:#8A6A1E;">+{{ modalCard.xp }} XP</span>
+              <span style="padding:6px 12px; border-radius:3px; background:#FBF7EC; border:1px dashed rgba(74,58,40,.3); font-family:'Special Elite'; font-size:9px; letter-spacing:.04em; color:rgba(70,53,36,.7);">{{ modalCard.km }} KM FROM HOME</span>
+            </div>
+
+            <div style="font-family:'Caveat'; font-weight:700; font-size:18px; color:#463524; margin-bottom:12px;">Both travellers' snaps</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div style="position:relative; background:#FBF8F1; padding:8px 8px 0; border-radius:3px; transform:rotate(-2deg); box-shadow:0 10px 20px -10px rgba(74,58,40,.45);">
+                <span style="position:absolute; top:-7px; left:50%; transform:translateX(-50%) rotate(-5deg); width:54px; height:16px; background:#92AEC6; opacity:.74;"></span>
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ modalCard.himSlot }}" shape="rect" placeholder="Bhavya's photo" hint-size="100%,108px" style="display:block; width:100%; height:108px;"></x-import>
+                <div style="padding:6px 2px 8px; text-align:center; font-family:'Caveat'; font-weight:600; font-size:15px; color:rgba(70,53,36,.7);">Bhavya's shot</div>
+              </div>
+              <div style="position:relative; background:#FBF8F1; padding:8px 8px 0; border-radius:3px; transform:rotate(1.8deg); box-shadow:0 10px 20px -10px rgba(74,58,40,.45);">
+                <span style="position:absolute; top:-7px; left:50%; transform:translateX(-50%) rotate(4deg); width:54px; height:16px; background:#BBA0C6; opacity:.74;"></span>
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ modalCard.herSlot }}" shape="rect" placeholder="Shraddha's photo" hint-size="100%,108px" style="display:block; width:100%; height:108px;"></x-import>
+                <div style="padding:6px 2px 8px; text-align:center; font-family:'Caveat'; font-weight:600; font-size:15px; color:rgba(70,53,36,.7);">Shraddha's shot</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { view: 'together', now: new Date('2026-06-14T09:24:12').getTime(), modal: null, hovered: null };
+
+  componentDidMount(){ this._t = setInterval(()=>this.setState({ now:this.state.now+1000 }), 1000); }
+  componentWillUnmount(){ clearInterval(this._t); }
+
+  DATA(){
+    return [
+      { id:'thailand', name:'Thailand', flag:'🇹🇭', continent:'Asia', date:'2024-09-14', who:'duo', remote:false, notes:'Longtail boats off Railay Beach — the first big trip of the challenge, and the one that started all this.', x:76, y:52, km:9180 },
+      { id:'greece', name:'Greece', flag:'🇬🇷', continent:'Europe', date:'2024-11-02', who:'duo', remote:false, notes:'Santorini at blue hour, the whole caldera glowing pink and gold while we ate olives on a rooftop.', x:57, y:37, km:2400 },
+      { id:'italy', name:'Italy', flag:'🇮🇹', continent:'Europe', date:'2025-01-19', who:'duo', remote:false, notes:'Driving the Amalfi coast at golden hour with the windows down and far too much gelato.', x:51, y:32, km:1430 },
+      { id:'iceland', name:'Iceland', flag:'🇮🇸', continent:'Europe', date:'2025-03-08', who:'duo', remote:true, notes:'Chasing the aurora on a black-sand beach near Vík. Minus four degrees and worth every shiver.', x:45, y:16, km:1880 },
+      { id:'mexico', name:'Mexico', flag:'🇲🇽', continent:'Americas', date:'2025-05-21', who:'duo', remote:false, notes:'Tulum at sunrise — fresh juice, warm stone ruins, and not another soul around.', x:19, y:46, km:8920 },
+      { id:'peru', name:'Peru', flag:'🇵🇪', continent:'Americas', date:'2025-07-30', who:'bhavya', remote:true, notes:'Bhavya\u2019s solo trek — sunrise breaking over Machu Picchu after four days on the Inca Trail.', x:27, y:66, km:8800 },
+      { id:'morocco', name:'Morocco', flag:'🇲🇦', continent:'Africa', date:'2025-09-25', who:'duo', remote:false, notes:'Gloriously, happily lost in the Marrakech medina until the call to prayer found us again.', x:47, y:44, km:2300 },
+      { id:'newzealand', name:'New Zealand', flag:'🇳🇿', continent:'Oceania', date:'2025-12-12', who:'duo', remote:true, notes:'The furthest we\u2019ve ever been from home — 9,500 km and a whole fjord all to ourselves.', x:93, y:84, km:9500 },
+      { id:'japan', name:'Japan', flag:'🇯🇵', continent:'Asia', date:'2026-03-18', who:'duo', remote:false, notes:'Cherry-blossom season in Kyoto — we caught full bloom along the Philosopher\u2019s Path.', x:82, y:34, km:9200 },
+      { id:'portugal', name:'Portugal', flag:'🇵🇹', continent:'Europe', date:'2026-05-22', who:'shraddha', remote:false, notes:'Shraddha\u2019s solo week — Tram 28 rattling up through the Alfama at dusk, pastel de nata in hand.', x:43, y:38, km:1600 }
+    ];
+  }
+
+  contColor(c){
+    return { Europe:'#8E9F7E', Asia:'#CDA267', Africa:'#D9B25A', Americas:'#88A8C4', Oceania:'#B79BC4', Antarctica:'#9FB0BE' }[c] || '#8E9F7E';
+  }
+  fmtMonth(iso){ const d=new Date(iso); return d.toLocaleDateString('en-GB',{month:'short',year:'numeric'}).toUpperCase(); }
+  fmtStamp(iso){ const d=new Date(iso); return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}).toUpperCase(); }
+  fmtFull(iso){ const d=new Date(iso); return d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); }
+  pad(n){ return String(n).padStart(2,'0'); }
+
+  countdown(target, name, accent, ink, soft){
+    const t=new Date(target).getTime(); const now=this.state.now; let diff=Math.max(0,t-now);
+    const d=Math.floor(diff/86400000); diff-=d*86400000;
+    const h=Math.floor(diff/3600000); diff-=h*3600000;
+    const m=Math.floor(diff/60000); diff-=m*60000;
+    const s=Math.floor(diff/1000);
+    return { name, accent, ink, soft, days:d, hrs:this.pad(h), mins:this.pad(m), secs:this.pad(s), urgent:d<30, dateLabel:this.fmtFull(target) };
+  }
+
+  renderVals(){
+    const view=this.state.view;
+    const T={
+      together:{ mid:'#A7B79A', ink:'#5C6B49', pastel:'#E4E8D5', soft:'#EDEFE0' },
+      bhavya:{ mid:'#92AEC6', ink:'#3F5C75', pastel:'#DBE6EF', soft:'#E7EFF6' },
+      shraddha:{ mid:'#BBA0C6', ink:'#6E4F7A', pastel:'#EADFF0', soft:'#F1E9F5' }
+    };
+    const t=T[view];
+    const accent=t.mid, accentInk=t.ink, accentPastel=t.pastel, accentSoft=t.soft;
+
+    const all=this.DATA();
+    const visible = view==='together' ? all : all.filter(c=>c.who==='duo' || c.who===view);
+    const count=visible.length;
+
+    const cdB=this.countdown('2027-03-04','Bhavya','#92AEC6','#3F5C75','#E7EFF6');
+    const cdS=this.countdown('2027-06-26','Shraddha','#BBA0C6','#6E4F7A','#F1E9F5');
+    cdB.featured = view!=='shraddha'; cdS.featured = view==='shraddha';
+    cdB.rot='-1.2deg'; cdS.rot='1.1deg'; cdB.page='#F6EFDF'; cdS.page='#F6EFDF';
+
+    const labels={ together:'Together', bhavya:'Bhavya', shraddha:'Shraddha' };
+    const tabs=['together','bhavya','shraddha'].map(k=>({
+      key:k, label:labels[k],
+      bg: view===k ? T[k].mid : 'rgba(251,247,236,.5)',
+      fg: view===k ? '#463524' : 'rgba(70,53,36,.55)',
+      lift: view===k ? '-3px' : '0px',
+      shadow: view===k ? '0 -2px 7px -2px rgba(74,58,40,.3)' : 'none',
+      onClick: ()=>this.setState({ view:k })
+    }));
+
+    const heroTitle = view==='together' ? count+' stamps, '+(30-count)+' to go.'
+      : view==='bhavya' ? count+' for Bhavya.' : count+' for Shraddha.';
+    const heroSub = view==='together' ? 'Two passports, one race against thirty. The earlier birthday sets the clock.'
+      : view==='bhavya' ? 'His deadline is the shared race clock — 4 March 2027, the tightest line on the board.'
+      : 'Her deadline runs 114 days more generous — 26 June 2027. A little more room to roam.';
+
+    const levelLabel = view==='shraddha' ? 'LV.5 GLOBETROTTER' : 'LV.6 EXPEDITION';
+    const xpLabel = view==='together' ? '170 XP · shared' : view==='bhavya' ? '160 XP earned' : '145 XP earned';
+    const avatarInitials = view==='together' ? 'BS' : view==='bhavya' ? 'B' : 'S';
+
+    const mapPins = visible.map((c,i)=>({ left:c.x+'%', top:c.y+'%', flag:c.flag, name:c.name, delay:(i*0.4)+'s' }));
+    const mapLinks=[]; for(let i=0;i<visible.length-1;i++){ const a=visible[i], b=visible[i+1]; mapLinks.push({ x1:a.x, y1:a.y, x2:b.x, y2:b.y }); }
+
+    const ringOffset = 440 - 440*(count/30);
+    const progressPct = (count/30*100).toFixed(1)+'%';
+
+    const continents=new Set(visible.map(c=>c.continent));
+    const furthest = visible.reduce((m,c)=>c.km>m.km?c:m, visible[0]);
+    const statRots=['-1.5deg','1.2deg','-1deg','1.6deg'];
+    const stats=[
+      { label:'Continents', value:continents.size, unit:'of 6', rot:statRots[0] },
+      { label:'Countries', value:count, unit:'of 30', rot:statRots[1] },
+      { label:'His clock', value:cdB.days, unit:'days left', rot:statRots[2] },
+      { label:'Furthest', value:furthest.flag, unit:furthest.name, rot:statRots[3] }
+    ];
+
+    const whoMap = {
+      duo:{ label:'TOGETHER', bg:'#E4E8D5', fg:'#5C6B49' },
+      bhavya:{ label:'BHAVYA SOLO', bg:'#DBE6EF', fg:'#3F5C75' },
+      shraddha:{ label:'SHRADDHA SOLO', bg:'#EADFF0', fg:'#6E4F7A' }
+    };
+    const cardRots=['-2.5deg','1.8deg','-1.4deg','2.2deg','-2deg','1.5deg','-1.7deg','2.4deg','-1.1deg','1.6deg'];
+    const washi=['#A7B79A','#D9B26A','#C49BB0','#92AEC6','#C77B5A','#7FA9A3','#CDA267','#B79BC4','#A7B79A','#D9B26A'];
+    const gridCards = visible.map((c,i)=>{
+      let wm = whoMap[c.who];
+      if(view!=='together' && c.who===view) wm = { label:'SOLO', bg:accentPastel, fg:accentInk };
+      return {
+        id:c.id, n:i+1, nn:this.pad(i+1), flag:c.flag, name:c.name, continent:c.continent,
+        month:this.fmtMonth(c.date), stampDate:this.fmtStamp(c.date),
+        contColor:this.contColor(c.continent),
+        whoLabel:wm.label, whoBg:wm.bg, whoFg:wm.fg,
+        rot:cardRots[i%cardRots.length], tapeColor:washi[i%washi.length], tapeRot:(i%2? '4deg':'-5deg'),
+        slotId:'slot-'+view+'-'+c.id, placeholder:'Drop a photo',
+        stampOpacity: this.state.hovered===c.id ? '0.95' : '0.14',
+        onEnter: ()=>this.setState({ hovered:c.id }),
+        onLeave: ()=>this.setState({ hovered:null }),
+        onClick: ()=>this.setState({ modal:c.id })
+      };
+    });
+    const ghostCards=[]; for(let i=count;i<30;i++) ghostCards.push({ n:i+1, nn:this.pad(i+1), rot:cardRots[i%cardRots.length], tapeRot:(i%2?'4deg':'-5deg') });
+
+    const CONTS=[ {name:'Europe',emoji:'🌍'},{name:'Americas',emoji:'🌎'},{name:'Asia',emoji:'🌏'},{name:'Africa',emoji:'🌍'},{name:'Oceania',emoji:'🌏'},{name:'Antarctica',emoji:'🧊'} ];
+    const contRots=['-2deg','1.5deg','-1deg','2deg','-1.5deg','1deg'];
+    const continentBadges = CONTS.map((ct,idx)=>{
+      const n = visible.filter(c=>c.continent===ct.name).length; const unlocked=n>0;
+      return { name:ct.name, emoji:ct.emoji, rot:contRots[idx],
+        countLabel: unlocked ? n+(n===1?' country':' countries') : 'locked',
+        opacity: unlocked?'1':'.6', filter: unlocked?'none':'grayscale(1)',
+        dash: unlocked?this.contColor(ct.name):'rgba(74,58,40,.3)',
+        nameColor: unlocked?'#463524':'rgba(70,53,36,.5)' };
+    });
+
+    const soloUnlocked = view==='together' ? all.some(c=>c.who!=='duo') : visible.some(c=>c.who===view);
+    const ach=[
+      {icon:'🛂',title:'First Stamp',cond:'first country',u:true},
+      {icon:'👫',title:'Dynamic Duo',cond:'first trip as two',u:true},
+      {icon:'🌍',title:'Continent Set',cond:'all 6 continents',u:continents.size>=6},
+      {icon:'🏃',title:'Solo Soul',cond:'a country alone',u:soloUnlocked},
+      {icon:'🔥',title:'On a Roll',cond:'3 in one season',u:true},
+      {icon:'🎯',title:'Halfway',cond:'15 of 30',u:count>=15},
+      {icon:'🌐',title:'World Citizen',cond:'all 30 done',u:count>=30},
+      {icon:'⏰',title:'Under the Wire',cond:'within 7 days',u:false}
+    ];
+    const achRots=['-1.5deg','1.2deg','-2deg','1.6deg','-1deg','2deg','-1.3deg','1.8deg'];
+    const achievements = ach.map((a,idx)=>({ icon:a.icon, title:a.title, cond:a.cond, rot:achRots[idx],
+      opacity:a.u?'1':'.6', filter:a.u?'none':'grayscale(1)',
+      bg:a.u?'#FBF8F1':'rgba(240,236,224,.7)',
+      border:a.u?'#E4D2AE':'rgba(74,58,40,.12)',
+      titleColor:a.u?'#463524':'rgba(70,53,36,.45)' }));
+    const achUnlocked = ach.filter(a=>a.u).length;
+
+    const last = visible.reduce((m,c)=> new Date(c.date)>new Date(m.date)?c:m, visible[0]);
+    const daysSince = Math.round((this.state.now - new Date(last.date).getTime())/86400000);
+    const noteTapes=['#A7B79A','#D9B26A','#C49BB0','#7FA9A3'];
+    const funStats=[
+      {icon:'✈️',label:'Furthest from home',value:furthest.name+' · '+furthest.km.toLocaleString()+' km',rot:'-0.8deg',tape:noteTapes[0]},
+      {icon:'📍',label:'Most recent stamp',value:last.name+' · '+daysSince+' days ago',rot:'0.9deg',tape:noteTapes[1]},
+      {icon:'🔥',label:'Best streak',value:'3 countries in one season',rot:'-0.6deg',tape:noteTapes[2]},
+      {icon:'⚡',label:'Current pace',value:(30-count)+' to go · '+cdB.days+' days left',rot:'0.7deg',tape:noteTapes[3]}
+    ];
+
+    const mc = this.state.modal ? all.find(c=>c.id===this.state.modal) : null;
+    const modalCard = mc ? {
+      id:mc.id, name:mc.name, flag:mc.flag, continent:mc.continent, notes:mc.notes,
+      contColor:this.contColor(mc.continent), fullDate:this.fmtFull(mc.date),
+      km:mc.km.toLocaleString(),
+      whoLabel: mc.who==='duo'?'Visited together':(mc.who==='bhavya'?'Bhavya · solo':'Shraddha · solo'),
+      sharedSlot:'modal-shared-'+mc.id, himSlot:'modal-him-'+mc.id, herSlot:'modal-her-'+mc.id,
+      xp: 10 + (mc.remote?15:0)
+    } : null;
+    const closeModal = ()=>this.setState({ modal:null });
+
+    return {
+      accent, accentInk, accentPastel, accentSoft,
+      tabs, heroTitle, heroSub, levelLabel, xpLabel, avatarInitials,
+      visitedCount:count, progressPct, ringOffset,
+      cdB, cdS, mapPins, mapLinks, stats,
+      gridCards, ghostCards, ghostLabel:(30-count),
+      continentBadges, achievements, achUnlocked, funStats,
+      modalCard, closeModal, stopProp:(e)=>e.stopPropagation(),
+      viewLabelLong: view==='together' ? 'Together · the shared race' : view==='bhavya' ? "Bhavya · solo pages" : "Shraddha · solo pages",
+      viewLabel: labels[view]
+    };
+  }
+}
+</script>
+</body>
+</html>

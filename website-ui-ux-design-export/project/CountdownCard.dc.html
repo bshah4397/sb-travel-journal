@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="position:relative; transform:rotate({{ rot }}); filter:drop-shadow(0 8px 15px rgba(74,58,40,.18));">
+  <div style="display:flex; background:#FBF7EC; border-radius:10px; overflow:hidden; border:1px solid rgba(74,58,40,.16);">
+
+    <!-- main stub -->
+    <div style="flex:1; padding:12px 14px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:7px;">
+        <span style="font-family:'Special Elite'; font-size:9px; letter-spacing:.13em; color:{{ ink }};">✈ BOARDING PASS</span>
+        <span style="font-family:'Special Elite'; font-size:8.5px; letter-spacing:.06em; color:rgba(74,58,40,.42);">{{ dateLabel }}</span>
+      </div>
+      <div style="font-family:'Caveat'; font-weight:700; font-size:21px; line-height:1; color:#463524; margin-bottom:5px;">{{ name }} turns 30</div>
+      <div style="display:flex; align-items:flex-end; gap:7px;">
+        <span style="font-family:'Lato'; font-weight:900; font-size:33px; line-height:.85; color:{{ daysColor }};">{{ days }}</span>
+        <span style="font-family:'Special Elite'; font-size:9.5px; color:rgba(74,58,40,.5); margin-bottom:4px;">days</span>
+        <span style="margin-left:auto; font-family:'Special Elite'; font-size:10.5px; color:rgba(74,58,40,.5); margin-bottom:3px; font-variant-numeric:tabular-nums;">{{ hrs }}:{{ mins }}:{{ secs }}</span>
+      </div>
+      <div style="height:13px; margin-top:10px; border-radius:1px; background:repeating-linear-gradient(90deg, #463524 0 1px, transparent 1px 3px, #463524 3px 5px, transparent 5px 6px, #463524 6px 8px, transparent 8px 11px); opacity:.5;"></div>
+    </div>
+
+    <!-- perforation -->
+    <div style="position:relative; width:0; border-left:2px dashed rgba(74,58,40,.28);">
+      <span style="position:absolute; top:-7px; left:-7px; width:14px; height:14px; border-radius:50%; background:{{ page }};"></span>
+      <span style="position:absolute; bottom:-7px; left:-7px; width:14px; height:14px; border-radius:50%; background:{{ page }};"></span>
+    </div>
+
+    <!-- right stub -->
+    <div style="width:60px; background:{{ stubBg }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:8px 4px;">
+      <span style="font-family:'Special Elite'; font-size:7.5px; letter-spacing:.1em; color:{{ ink }};">GATE 30</span>
+      <span style="font-family:'Lato'; font-weight:900; font-size:23px; line-height:1; color:{{ ink }};">{{ days }}</span>
+      <span style="font-family:'Special Elite'; font-size:7.5px; letter-spacing:.18em; color:rgba(74,58,40,.5);">DAYS</span>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:340,&quot;height&quot;:140},&quot;data&quot;:{&quot;editor&quot;:null,&quot;default&quot;:null}}">
+class Component extends DCLogic {
+  renderVals(){
+    const d = this.props.data || {};
+    const acc = d.accent || '#A7B79A';
+    const ink = d.ink || '#5C6B49';
+    const soft = d.soft || '#EDEFE0';
+    const featured = !!d.featured;
+    const urgent = !!d.urgent;
+    const hotInk = urgent ? '#B0503C' : ink;
+    return {
+      name: d.name || '—',
+      dateLabel: d.dateLabel || '',
+      days: d.days==null ? '—' : d.days,
+      hrs: d.hrs ?? '00', mins: d.mins ?? '00', secs: d.secs ?? '00',
+      rot: d.rot || '0deg',
+      page: d.page || '#F6EFDF',
+      ink: hotInk,
+      daysColor: featured ? hotInk : '#463524',
+      stubBg: featured ? (urgent ? '#F4E2D8' : soft) : '#EFE7D4'
+    };
+  }
+}
+</script>
+</body>
+</html>
