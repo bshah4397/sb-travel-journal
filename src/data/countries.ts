@@ -22,11 +22,11 @@ export interface Country {
   dateVisited: string;
   /** Who was there. `duo` = both together. */
   who: Traveller;
-  /** Flagged "remote / difficult" — worth bonus XP. */
+  /** Flagged "remote / difficult", worth bonus XP. */
   remote: boolean;
   /** Short journal note shown in the detail modal. */
   notes: string;
-  /** Approx distance from home, km — used for "furthest" stat. */
+  /** Approx distance from home, km, used for "furthest" stat. */
   km: number;
   /** Optional couple milestone celebrated on this country (e.g. first trip). */
   milestone?: string;
@@ -36,14 +36,14 @@ export interface Country {
    */
   map: { x: number; y: number };
   /**
-   * Static photo assets, committed to /public. Optional for now — the UI
+   * Static photo assets, committed to /public. Optional for now, the UI
    * renders styled placeholders until real images are dropped in.
    */
   photos?: CountryPhotos;
 }
 
 /**
- * The challenge log. Edit this file and commit to update the site —
+ * The challenge log. Edit this file and commit to update the site …
  * there is no backend, no auth, no upload UI (read-only display app).
  *
  * Data mirrors the approved mockup. Photo paths follow the convention
@@ -59,7 +59,7 @@ export const COUNTRIES: Country[] = [
     who: 'bhavya',
     remote: false,
     notes:
-      'Bhavya’s very first stamp — dune drives at dusk and the gold souks of old Dubai.',
+      'Bhavya’s very first stamp, dune drives at dusk and the gold souks of old Dubai.',
     km: 1930,
     map: { x: 62, y: 43 },
     milestone: 'Where it all began',
@@ -73,7 +73,7 @@ export const COUNTRIES: Country[] = [
     who: 'shraddha',
     remote: false,
     notes:
-      'Shraddha’s island escape — rice terraces, temple mornings, and sunsets over Uluwatu.',
+      'Shraddha’s island escape, rice terraces, temple mornings, and sunsets over Uluwatu.',
     km: 5500,
     map: { x: 80, y: 60 },
   },
@@ -86,7 +86,7 @@ export const COUNTRIES: Country[] = [
     who: 'bhavya',
     remote: false,
     notes:
-      'Bhavya in the Lion City — Gardens by the Bay glowing after dark and hawker-stall feasts.',
+      'Bhavya in the Lion City, Gardens by the Bay glowing after dark and hawker-stall feasts.',
     km: 3915,
     map: { x: 77, y: 56 },
   },
@@ -99,7 +99,7 @@ export const COUNTRIES: Country[] = [
     who: 'bhavya',
     remote: true,
     notes:
-      'Bhavya down under — the Opera House sails and a ferry ride across Sydney Harbour.',
+      'Bhavya down under, the Opera House sails and a ferry ride across Sydney Harbour.',
     km: 10160,
     map: { x: 88, y: 80 },
   },
@@ -112,7 +112,7 @@ export const COUNTRIES: Country[] = [
     who: 'duo',
     remote: false,
     notes:
-      'Our first trip as two — misty hill-station mornings in Mussoorie and chai on the Mall Road.',
+      'Our first trip as two, misty hill-station mornings in Mussoorie and chai on the Mall Road.',
     km: 1180,
     map: { x: 66, y: 38 },
     milestone: 'First trip as two',
@@ -126,7 +126,7 @@ export const COUNTRIES: Country[] = [
     who: 'shraddha',
     remote: false,
     notes:
-      'Shraddha through Barcelona, Granada and Valencia — Gaudí curves, the Alhambra, and paella by the sea.',
+      'Shraddha through Barcelona, Granada and Valencia, Gaudí curves, the Alhambra, and paella by the sea.',
     km: 7000,
     map: { x: 46, y: 34 },
   },
@@ -139,7 +139,7 @@ export const COUNTRIES: Country[] = [
     who: 'duo',
     remote: false,
     notes:
-      'Christmas together in London — lights down Regent Street and mulled wine in the cold.',
+      'Christmas together in London, lights down Regent Street and mulled wine in the cold.',
     km: 7200,
     map: { x: 46, y: 26 },
   },
@@ -152,7 +152,7 @@ export const COUNTRIES: Country[] = [
     who: 'duo',
     remote: false,
     notes:
-      'New Year in Edinburgh — the castle on the hill and Hogmanay over the Royal Mile.',
+      'New Year in Edinburgh, the castle on the hill and Hogmanay over the Royal Mile.',
     km: 7700,
     map: { x: 45, y: 22 },
   },
@@ -165,10 +165,10 @@ export const COUNTRIES: Country[] = [
     who: 'duo',
     remote: false,
     notes:
-      'Our furthest yet — red-brick Beacon Hill, the Boston Freedom Trail, and proper New England chowder.',
+      'Our furthest yet, red-brick Beacon Hill, the Boston Freedom Trail, and proper New England chowder.',
     km: 12500,
     map: { x: 26, y: 32 },
-    milestone: 'Furthest from home',
+    milestone: 'Furthest we’ve been',
   },
   {
     id: 'canada',
@@ -179,7 +179,7 @@ export const COUNTRIES: Country[] = [
     who: 'bhavya',
     remote: false,
     notes:
-      'Bhavya in Old Montreal — cobblestones, French cafés, and a summer festival in full swing.',
+      'Bhavya in Old Montreal, cobblestones, French cafés, and a summer festival in full swing.',
     km: 12000,
     map: { x: 25, y: 29 },
   },
@@ -192,7 +192,7 @@ export const COUNTRIES: Country[] = [
     who: 'duo',
     remote: false,
     notes:
-      'Rolling Tuscan vineyards and hill towns — long lunches, cypress roads, and far too much Chianti.',
+      'Rolling Tuscan vineyards and hill towns, long lunches, cypress roads, and far too much Chianti.',
     km: 6300,
     map: { x: 50, y: 33 },
   },
@@ -205,7 +205,7 @@ export const COUNTRIES: Country[] = [
     who: 'duo',
     remote: false,
     notes:
-      'St Peter’s dome and the Sistine ceiling — the smallest country, the biggest awe.',
+      'St Peter’s dome and the Sistine ceiling, the smallest country, the biggest awe.',
     km: 6200,
     map: { x: 51, y: 34 },
   },
@@ -218,17 +218,11 @@ export const COUNTRIES: Country[] = [
     who: 'shraddha',
     remote: false,
     notes:
-      'Shraddha in the Baltic — Art Nouveau facades and Riga’s old town under summer light.',
+      'Shraddha in the Baltic, Art Nouveau facades and Riga’s old town under summer light.',
     km: 6100,
     map: { x: 57, y: 24 },
   },
 ];
-
-/**
- * Home base on the stylized map (percentage coords). Every trip's dotted
- * line radiates back here — the heart the journeys return to.
- */
-export const HOME = { x: 63, y: 15, label: 'home' };
 
 /** The two racers and their "turns 30" deadlines (hardcoded per the brief). */
 export const RACERS = {
@@ -243,7 +237,7 @@ export const RACERS = {
     key: 'shraddha' as const,
     name: 'Shraddha',
     initial: 'S',
-    /** 26 June 2027 — 114 days more generous. */
+    /** 26 June 2027, 114 days more generous. */
     turns30: '2027-06-26',
   },
 };

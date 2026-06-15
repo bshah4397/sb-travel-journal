@@ -7,7 +7,7 @@ import { Heart } from './Doodles';
  * pulsing pins, and a wax-seal progress ring.
  */
 export function JournalMap({ model }: { model: JournalModel }) {
-  const { mapPins, mapLinks, ringOffset, count, home, homeLinks } = model;
+  const { mapPins, mapLinks, ringOffset, count } = model;
 
   return (
     <div className="map-panel">
@@ -19,21 +19,6 @@ export function JournalMap({ model }: { model: JournalModel }) {
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        {/* faint dotted lines radiating from home to every trip */}
-        {homeLinks.map((lk, i) => (
-          <line
-            key={`home${i}`}
-            x1={lk.x1}
-            y1={lk.y1}
-            x2={lk.x2}
-            y2={lk.y2}
-            stroke={palette.stampRed}
-            strokeWidth={0.22}
-            strokeDasharray="0.6 1.4"
-            strokeLinecap="round"
-            opacity={0.32}
-          />
-        ))}
         {/* the journey path between countries */}
         {mapLinks.map((lk, i) => (
           <line
@@ -78,12 +63,6 @@ export function JournalMap({ model }: { model: JournalModel }) {
           </span>
         </div>
       ))}
-
-      {/* home base — the heart every journey returns to */}
-      <div className="map-home" style={{ left: `${home.x}%`, top: `${home.y}%` }}>
-        <Heart size={20} />
-        <span className="map-home__label">{home.label}</span>
-      </div>
 
       <div className="map-seal">
         <svg width="124" height="124" viewBox="0 0 160 160">

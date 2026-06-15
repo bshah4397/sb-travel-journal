@@ -6,7 +6,7 @@ import { Heart } from './Doodles';
  * A visited country as a taped polaroid. Click → opens the detail modal.
  *
  * The entrance fade-up lives on the outer cell (CSS keyframe, staggered by
- * index) while the resting rotation + hover lift live on the inner button —
+ * index) while the resting rotation + hover lift live on the inner button …
  * keeping the two transforms from fighting each other.
  */
 export function CountryCard({
@@ -84,7 +84,7 @@ export function CountryCard({
   );
 }
 
-/** A not-yet-visited slot — dashed placeholder that creates anticipation. */
+/** A not-yet-visited slot, dashed placeholder that creates anticipation. */
 export function GhostCard({ ghost }: { ghost: GhostModel }) {
   return (
     <div className="ghost" style={{ transform: `rotate(${ghost.rot})` }}>

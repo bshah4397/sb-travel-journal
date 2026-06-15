@@ -12,7 +12,7 @@ import { Heart, SheetDoodles } from '@/components/Doodles';
 import { Celebration } from '@/components/Celebration';
 import '@/styles/journal.css';
 
-/** Ticking wall clock — one update per second. */
+/** Ticking wall clock, one update per second. */
 function useNow() {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {

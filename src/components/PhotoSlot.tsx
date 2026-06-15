@@ -1,6 +1,6 @@
 /**
  * Souvenir photo slot. Renders the image when a static asset path is present,
- * otherwise a striped placeholder with a hint — so the grid looks intentional
+ * otherwise a striped placeholder with a hint, so the grid looks intentional
  * until real photos are committed to /public.
  */
 export function PhotoSlot({

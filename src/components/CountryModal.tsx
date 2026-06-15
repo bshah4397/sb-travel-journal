@@ -83,7 +83,7 @@ export function CountryModal({
                 {country.continent}
               </span>
               <span className="chip chip--xp">+{countryXp(country)} XP</span>
-              <span className="chip chip--km">{country.km.toLocaleString()} KM FROM HOME</span>
+              <span className="chip chip--km">{country.km.toLocaleString()} KM AWAY</span>
             </div>
 
             <div className="modal__snaps-head">Both travellers' snaps</div>

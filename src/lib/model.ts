@@ -8,7 +8,6 @@
  */
 import {
   COUNTRIES,
-  HOME,
   type Country,
   type Traveller,
 } from '@/data/countries';
@@ -53,7 +52,7 @@ export interface MapPin {
   flag: string;
   name: string;
   delay: string;
-  /** Visited together — gets a love heart on the map. */
+  /** Visited together, gets a love heart on the map. */
   isDuo: boolean;
 }
 
@@ -148,8 +147,6 @@ export interface JournalModel {
   avatarInitials: string;
   mapPins: MapPin[];
   mapLinks: MapLink[];
-  home: { x: number; y: number; label: string };
-  homeLinks: MapLink[];
   stats: StatTag[];
   cards: CardModel[];
   ghosts: GhostModel[];
@@ -218,8 +215,8 @@ export function buildModel(view: ViewKey): JournalModel {
     view === 'together'
       ? 'Two passports, one race against thirty. The earlier birthday sets the clock.'
       : view === 'bhavya'
-        ? 'His deadline is the shared race clock — 4 March 2027, the tightest line on the board.'
-        : 'Her deadline runs 114 days more generous — 26 June 2027. A little more room to roam.';
+        ? 'His deadline is the shared race clock, 4 March 2027, the tightest line on the board.'
+        : 'Her deadline runs 114 days more generous, 26 June 2027. A little more room to roam.';
 
   const levelLabel = view === 'shraddha' ? 'LV.5 GLOBETROTTER' : 'LV.6 EXPEDITION';
   const avatarInitials = view === 'together' ? 'BS' : view === 'bhavya' ? 'B' : 'S';
@@ -239,20 +236,13 @@ export function buildModel(view: ViewKey): JournalModel {
     mapLinks.push({ x1: a.map.x, y1: a.map.y, x2: b.map.x, y2: b.map.y });
   }
 
-  const homeLinks: MapLink[] = visible.map((c) => ({
-    x1: HOME.x,
-    y1: HOME.y,
-    x2: c.map.x,
-    y2: c.map.y,
-  }));
-
   const ringOffset = 440 - 440 * (count / TARGET_COUNT);
 
   const stats: StatTag[] = [
     { label: 'Continents', value: continents.size, unit: `of ${TOTAL_CONTINENTS}`, rot: STAT_ROTS[0] },
     { label: 'Countries', value: count, unit: `of ${TARGET_COUNT}`, rot: STAT_ROTS[1] },
-    { label: 'His clock', value: '—', unit: 'days left', rot: STAT_ROTS[2], live: 'bhavyaDays' },
-    { label: 'Furthest', value: furthest?.flag ?? '—', unit: furthest?.name ?? '', rot: STAT_ROTS[3] },
+    { label: 'His clock', value: '…', unit: 'days left', rot: STAT_ROTS[2], live: 'bhavyaDays' },
+    { label: 'Furthest', value: furthest?.flag ?? '…', unit: furthest?.name ?? '', rot: STAT_ROTS[3] },
   ];
 
   const cards: CardModel[] = visible.map((c, i) => {
@@ -337,8 +327,8 @@ export function buildModel(view: ViewKey): JournalModel {
   const tripNotes: TripNoteModel[] = [
     {
       icon: '✈️',
-      label: 'Furthest from home',
-      value: furthest ? `${furthest.name} · ${furthest.km.toLocaleString()} km` : '—',
+      label: 'Furthest we’ve been',
+      value: furthest ? `${furthest.name} · ${furthest.km.toLocaleString()} km` : '…',
       rot: '-0.8deg',
       tape: NOTE_TAPES[0],
     },
@@ -353,7 +343,7 @@ export function buildModel(view: ViewKey): JournalModel {
     {
       icon: '⚡',
       label: 'Current pace',
-      value: `${remaining} to go · — days left`,
+      value: `${remaining} to go · … days left`,
       rot: '0.7deg',
       tape: NOTE_TAPES[3],
       live: 'pace',
@@ -375,8 +365,6 @@ export function buildModel(view: ViewKey): JournalModel {
     avatarInitials,
     mapPins,
     mapLinks,
-    home: HOME,
-    homeLinks,
     stats,
     cards,
     ghosts,
@@ -388,7 +376,7 @@ export function buildModel(view: ViewKey): JournalModel {
 }
 
 function mostRecentLabel(list: Country[]): string {
-  if (list.length === 0) return '—';
+  if (list.length === 0) return '…';
   const last = list.reduce((m, c) =>
     new Date(c.dateVisited) > new Date(m.dateVisited) ? c : m,
   );

@@ -35,8 +35,8 @@ export function Heart({
 }
 
 /**
- * Faint margin doodles scattered across the journal sheet — hearts, a little
- * dashed plane trail, a star — like ink scribbles in a real travel diary.
+ * Faint margin doodles scattered across the journal sheet, hearts, a little
+ * dashed plane trail, a star, like ink scribbles in a real travel diary.
  * Purely decorative; sits behind the content.
  */
 export function SheetDoodles() {

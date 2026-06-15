@@ -23,7 +23,7 @@ export interface Countdown {
   hrs: string;
   mins: string;
   secs: string;
-  /** True when under 30 days — UI shifts to the stamp-red "final stretch" look. */
+  /** True when under 30 days, UI shifts to the stamp-red "final stretch" look. */
   urgent: boolean;
 }
 

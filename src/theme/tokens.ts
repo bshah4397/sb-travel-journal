@@ -3,7 +3,7 @@
  *
  * Values are lifted verbatim from the approved HTML mockup
  * (`website-ui-ux-design-export/project/30 Under 30.dc.html`) so the React
- * build stays pixel-faithful. The aesthetic is warm paper / scrapbook — NOT
+ * build stays pixel-faithful. The aesthetic is warm paper / scrapbook, NOT
  * the dark-mode direction in the original creative brief.
  */
 
@@ -32,7 +32,7 @@ export const palette = {
   progressTrack: '#EAE0C8',
   /** Primary ink (text). */
   ink: '#463524',
-  /** Stamp red — used for urgency / "visited" stamps / final stretch. */
+  /** Stamp red, used for urgency / "visited" stamps / final stretch. */
   stampRed: '#B0503C',
   /** Map ink (dashed route lines). */
   mapInk: '#9A5A3E',
@@ -71,9 +71,9 @@ export const washiTape = [
 ] as const;
 
 export const fonts = {
-  /** Bold uppercase display — big titles & headers (MEMORIES/ROAD-TRIP style). */
+  /** Bold uppercase display, big titles & headers (MEMORIES/ROAD-TRIP style). */
   display: "'Oswald', sans-serif",
-  /** Signature script — personal accents (names, tagline, diary). */
+  /** Signature script, personal accents (names, tagline, diary). */
   script: "'Sacramento', cursive",
   /** Typewriter labels / meta. */
   mono: "'Special Elite', monospace",
