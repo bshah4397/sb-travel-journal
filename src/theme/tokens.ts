@@ -71,8 +71,10 @@ export const washiTape = [
 ] as const;
 
 export const fonts = {
-  /** Handwritten display. */
-  display: "'Caveat', cursive",
+  /** Bold uppercase display — big titles & headers (MEMORIES/ROAD-TRIP style). */
+  display: "'Oswald', sans-serif",
+  /** Signature script — personal accents (names, tagline, diary). */
+  script: "'Sacramento', cursive",
   /** Typewriter labels / meta. */
   mono: "'Special Elite', monospace",
   /** Body / numerals. */

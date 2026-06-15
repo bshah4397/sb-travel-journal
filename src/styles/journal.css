@@ -27,7 +27,7 @@
   color: rgba(70, 53, 36, 0.5);
 }
 .journal__meta-script {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 19px;
   text-transform: none;
@@ -114,7 +114,7 @@
   color: var(--ink);
 }
 .nav__subtitle {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 17px;
   color: rgba(70, 53, 36, 0.62);
@@ -167,7 +167,7 @@
   color: var(--ink);
 }
 .nav__level-xp {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 15px;
   color: rgba(70, 53, 36, 0.55);
@@ -260,16 +260,18 @@
   margin-left: -9px;
 }
 .duo-badge__label {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 18px;
   color: rgba(70, 53, 36, 0.78);
 }
 .hero-title {
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
-  font-size: 64px;
-  line-height: 0.92;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 54px;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+  line-height: 1.02;
   margin: 0;
   color: var(--ink);
 }
@@ -296,9 +298,9 @@
   color: rgba(70, 53, 36, 0.55);
 }
 .progress__count {
-  font-family: 'Caveat', cursive;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 22px;
   color: var(--ink);
 }
 .progress__count b {
@@ -385,7 +387,7 @@
   left: 15px;
   top: -6px;
   white-space: nowrap;
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 14px;
   color: var(--ink);
@@ -418,9 +420,9 @@
   transform: rotate(-4deg);
 }
 .map-seal__num {
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
-  font-size: 34px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 900;
+  font-size: 30px;
   line-height: 0.8;
   color: var(--ink);
 }
@@ -434,7 +436,7 @@
   position: absolute;
   left: 18px;
   top: 16px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 700;
   font-size: 19px;
   color: var(--ink);
@@ -494,9 +496,9 @@
   color: var(--ink);
 }
 .luggage-tag__unit {
-  font-family: 'Caveat', cursive;
-  font-weight: 600;
-  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
   color: rgba(70, 53, 36, 0.6);
 }
 
@@ -508,9 +510,11 @@
   margin-bottom: 18px;
 }
 .sec-head__title {
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
-  font-size: 26px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--ink);
 }
 .sec-head__rule {
@@ -551,7 +555,7 @@
   font-size: 11px;
 }
 .stamp__count {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 14px;
   margin-top: 2px;
@@ -568,9 +572,11 @@
   flex-wrap: wrap;
 }
 .collection-head__title {
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
-  font-size: 34px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   margin: 0;
   line-height: 1;
   color: var(--ink);
@@ -586,9 +592,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Caveat', cursive;
-  font-weight: 600;
-  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
   color: rgba(70, 53, 36, 0.62);
 }
 .legend span {
@@ -744,7 +750,7 @@
   gap: 7px;
 }
 .polaroid__name {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 700;
   font-size: 22px;
   line-height: 0.9;
@@ -766,9 +772,9 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-family: 'Caveat', cursive;
-  font-weight: 600;
-  font-size: 14px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
   color: rgba(70, 53, 36, 0.7);
 }
 .polaroid__cont-dot {
@@ -824,7 +830,7 @@
 }
 .ghost__caption {
   padding: 9px 4px 12px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 18px;
   color: rgba(74, 58, 40, 0.32);
@@ -860,9 +866,9 @@
   line-height: 1.1;
 }
 .sticker__cond {
-  font-family: 'Caveat', cursive;
-  font-weight: 600;
-  font-size: 14px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
   margin-top: 3px;
   color: rgba(70, 53, 36, 0.6);
   line-height: 1.05;
@@ -911,7 +917,7 @@
   color: rgba(70, 53, 36, 0.5);
 }
 .note__value {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 700;
   font-size: 18px;
   color: var(--ink);
@@ -952,7 +958,7 @@
   color: rgba(74, 58, 40, 0.42);
 }
 .boarding__name {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 700;
   font-size: 21px;
   line-height: 1;
@@ -1135,7 +1141,7 @@
 .modal__hero-cap {
   padding: 10px 4px 14px;
   text-align: center;
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 700;
   font-size: 26px;
   color: var(--ink);
@@ -1148,7 +1154,7 @@
   margin-bottom: 4px;
 }
 .modal__entry-title {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 700;
   font-size: 46px;
   margin: 0 0 14px;
@@ -1157,7 +1163,7 @@
 }
 .modal__notes {
   margin: 0 0 22px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 23px;
   line-height: 1.3;
@@ -1201,7 +1207,7 @@
   border-radius: 50%;
 }
 .modal__snaps-head {
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 700;
   font-size: 18px;
   color: var(--ink);
@@ -1230,7 +1236,7 @@
 .snap__cap {
   padding: 6px 2px 8px;
   text-align: center;
-  font-family: 'Caveat', cursive;
+  font-family: 'Sacramento', cursive;
   font-weight: 600;
   font-size: 15px;
   color: rgba(70, 53, 36, 0.7);
