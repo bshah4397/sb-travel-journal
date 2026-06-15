@@ -8,6 +8,7 @@
  */
 import {
   COUNTRIES,
+  HOME,
   type Country,
   type Traveller,
 } from '@/data/countries';
@@ -91,6 +92,7 @@ export interface CardModel {
   tapeRot: string;
   slotId: string;
   photo?: string;
+  milestone?: string;
 }
 
 export interface GhostModel {
@@ -146,6 +148,8 @@ export interface JournalModel {
   avatarInitials: string;
   mapPins: MapPin[];
   mapLinks: MapLink[];
+  home: { x: number; y: number; label: string };
+  homeLinks: MapLink[];
   stats: StatTag[];
   cards: CardModel[];
   ghosts: GhostModel[];
@@ -235,6 +239,13 @@ export function buildModel(view: ViewKey): JournalModel {
     mapLinks.push({ x1: a.map.x, y1: a.map.y, x2: b.map.x, y2: b.map.y });
   }
 
+  const homeLinks: MapLink[] = visible.map((c) => ({
+    x1: HOME.x,
+    y1: HOME.y,
+    x2: c.map.x,
+    y2: c.map.y,
+  }));
+
   const ringOffset = 440 - 440 * (count / TARGET_COUNT);
 
   const stats: StatTag[] = [
@@ -268,6 +279,7 @@ export function buildModel(view: ViewKey): JournalModel {
       tapeRot: i % 2 ? '4deg' : '-5deg',
       slotId: `slot-${view}-${c.id}`,
       photo: photoFor(c, view),
+      milestone: c.milestone,
     };
   });
 
@@ -363,6 +375,8 @@ export function buildModel(view: ViewKey): JournalModel {
     avatarInitials,
     mapPins,
     mapLinks,
+    home: HOME,
+    homeLinks,
     stats,
     cards,
     ghosts,

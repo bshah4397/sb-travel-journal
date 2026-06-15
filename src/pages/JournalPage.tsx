@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { COUNTRIES, RACERS } from '@/data/countries';
 import { countdown } from '@/lib/journal';
 import { buildModel } from '@/lib/model';
-import { viewThemes, type ViewKey } from '@/theme/tokens';
+import { TARGET_COUNT, viewThemes, type ViewKey } from '@/theme/tokens';
 import { CountdownCard } from '@/components/CountdownCard';
 import { JournalMap } from '@/components/JournalMap';
 import { CountryCard, GhostCard } from '@/components/CountryCard';
 import { CountryModal } from '@/components/CountryModal';
 import { Heart, SheetDoodles } from '@/components/Doodles';
+import { Celebration } from '@/components/Celebration';
 import '@/styles/journal.css';
 
 /** Ticking wall clock — one update per second. */
@@ -28,6 +29,13 @@ export function JournalPage({ view }: { view: ViewKey }) {
 
   const [openId, setOpenId] = useState<string | null>(null);
   const openCountry = openId ? COUNTRIES.find((c) => c.id === openId) ?? null : null;
+
+  // Celebrate on completion (or via ?celebrate=1 to preview the moment).
+  const [celebrating, setCelebrating] = useState(
+    () =>
+      model.count >= TARGET_COUNT ||
+      new URLSearchParams(window.location.search).get('celebrate') === '1',
+  );
 
   const cdB = countdown(RACERS.bhavya.turns30, now);
   const cdS = countdown(RACERS.shraddha.turns30, now);
@@ -288,6 +296,8 @@ export function JournalPage({ view }: { view: ViewKey }) {
       </div>
 
       {openCountry && <CountryModal country={openCountry} onClose={() => setOpenId(null)} />}
+
+      {celebrating && <Celebration onClose={() => setCelebrating(false)} />}
     </div>
   );
 }

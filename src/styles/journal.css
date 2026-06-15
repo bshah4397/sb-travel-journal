@@ -430,6 +430,42 @@
   border: 1px solid rgba(74, 58, 40, 0.15);
   transform: rotate(-2deg);
 }
+.map-home {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.map-home svg {
+  animation: heartBeat 2.2s ease-in-out infinite;
+  filter: drop-shadow(0 1px 1px rgba(74, 58, 40, 0.25));
+}
+@keyframes heartBeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.22);
+  }
+  30% {
+    transform: scale(1);
+  }
+}
+.map-home__label {
+  font-family: 'Sacramento', cursive;
+  font-size: 17px;
+  line-height: 0.8;
+  color: #463524;
+  background: var(--cream);
+  padding: 1px 8px;
+  border-radius: 5px;
+  border: 1px solid rgba(74, 58, 40, 0.15);
+}
+
 .map-seal {
   position: absolute;
   right: 18px;
@@ -774,8 +810,44 @@
   letter-spacing: 0.06em;
   color: #b0503c;
 }
+.polaroid__stamp--heart {
+  border: none;
+  border-radius: 0;
+}
+.polaroid__stamp-heart {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding-top: 7px;
+}
+.polaroid__stamp-heart small {
+  font-family: 'Special Elite', monospace;
+  letter-spacing: 0.04em;
+  color: #b0503c;
+  line-height: 1;
+}
+
 .polaroid__caption {
   padding: 9px 4px 12px;
+}
+.polaroid__milestone {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  padding: 3px 9px 3px 7px;
+  border-radius: 999px;
+  background: rgba(176, 80, 60, 0.1);
+  border: 1px dashed rgba(176, 80, 60, 0.4);
+  font-family: 'Special Elite', monospace;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #9a4632;
 }
 .polaroid__caption-row {
   display: flex;
@@ -1362,4 +1434,91 @@
   .sheet__doodles {
     display: none;
   }
+}
+
+/* ── Completion celebration (30 / 30) ──────────────────── */
+.celebrate {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(74, 58, 40, 0.55);
+  animation: overlayIn 0.35s ease both;
+}
+.celebrate__sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.celebrate__heart {
+  position: absolute;
+  top: -8%;
+  animation-name: confettiFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-12vh) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(112vh) rotate(360deg);
+    opacity: 0.9;
+  }
+}
+.celebrate__banner {
+  position: relative;
+  text-align: center;
+  max-width: 460px;
+  padding: 40px 44px 34px;
+  border-radius: 8px;
+  background: var(--sheet);
+  border: 1px solid rgba(74, 58, 40, 0.18);
+  box-shadow: 0 40px 90px -30px rgba(74, 58, 40, 0.7);
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.5), transparent 55%),
+    repeating-linear-gradient(90deg, rgba(120, 95, 60, 0.02) 0 2px, transparent 2px 4px);
+  animation: modalIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.celebrate__kicker {
+  font-family: 'Special Elite', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #b0503c;
+}
+.celebrate__title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 48px;
+  line-height: 1;
+  margin: 10px 0 12px;
+  color: #463524;
+}
+.celebrate__sub {
+  font-family: 'Sacramento', cursive;
+  font-size: 26px;
+  line-height: 1;
+  color: #5a4836;
+  margin: 0 0 22px;
+}
+.celebrate__btn {
+  font-family: 'Special Elite', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  padding: 10px 22px;
+  border-radius: 9px 9px 3px 3px;
+  border: none;
+  background: #a7b79a;
+  color: #463524;
+  box-shadow: 0 4px 10px -4px rgba(74, 58, 40, 0.4);
 }

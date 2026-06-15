@@ -3,6 +3,7 @@ import type { Country } from '@/data/countries';
 import { continentColors } from '@/theme/tokens';
 import { countryXp, fmtFull } from '@/lib/model';
 import { PhotoSlot } from './PhotoSlot';
+import { Heart } from './Doodles';
 
 const WHO_LABEL: Record<Country['who'], string> = {
   duo: 'Visited together',
@@ -67,6 +68,12 @@ export function CountryModal({
             <div className="modal__entry-meta">
               {fmtFull(country.dateVisited)} · {WHO_LABEL[country.who]}
             </div>
+            {country.milestone && (
+              <div className="modal__milestone">
+                <Heart size={12} />
+                {country.milestone}
+              </div>
+            )}
             <h3 className="modal__entry-title">Dear journal…</h3>
             <p className="modal__notes">“{country.notes}”</p>
 

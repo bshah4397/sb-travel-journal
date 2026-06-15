@@ -28,6 +28,8 @@ export interface Country {
   notes: string;
   /** Approx distance from home, km — used for "furthest" stat. */
   km: number;
+  /** Optional couple milestone celebrated on this country (e.g. first trip). */
+  milestone?: string;
   /**
    * Hand-placed map coordinates as percentages (0–100) of the map panel,
    * matching the mockup's stylized map rather than real lat/long.
@@ -60,6 +62,7 @@ export const COUNTRIES: Country[] = [
       'Longtail boats off Railay Beach — the first big trip of the challenge, and the one that started all this.',
     km: 9180,
     map: { x: 76, y: 52 },
+    milestone: 'Where it all began',
   },
   {
     id: 'greece',
@@ -124,6 +127,7 @@ export const COUNTRIES: Country[] = [
       'Bhavya’s solo trek — sunrise breaking over Machu Picchu after four days on the Inca Trail.',
     km: 8800,
     map: { x: 27, y: 66 },
+    milestone: 'First solo adventure',
   },
   {
     id: 'morocco',
@@ -150,6 +154,7 @@ export const COUNTRIES: Country[] = [
       'The furthest we’ve ever been from home — 9,500 km and a whole fjord all to ourselves.',
     km: 9500,
     map: { x: 93, y: 84 },
+    milestone: 'Furthest from home',
   },
   {
     id: 'japan',
@@ -178,6 +183,12 @@ export const COUNTRIES: Country[] = [
     map: { x: 43, y: 38 },
   },
 ];
+
+/**
+ * Home base on the stylized map (percentage coords). Every trip's dotted
+ * line radiates back here — the heart the journeys return to.
+ */
+export const HOME = { x: 63, y: 15, label: 'home' };
 
 /** The two racers and their "turns 30" deadlines (hardcoded per the brief). */
 export const RACERS = {

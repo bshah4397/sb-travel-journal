@@ -1,5 +1,6 @@
 import type { CardModel, GhostModel } from '@/lib/model';
 import { PhotoSlot } from './PhotoSlot';
+import { Heart } from './Doodles';
 
 /**
  * A visited country as a taped polaroid. Click → opens the detail modal.
@@ -37,13 +38,23 @@ export function CountryCard({
           <span className="polaroid__corner polaroid__corner--br" />
           <span className="polaroid__no">No. {card.nn}</span>
 
-          <div className="polaroid__stamp">
-            <span className="polaroid__stamp-ring">
-              <small style={{ fontSize: 7 }}>VISITED</small>
-              <span style={{ fontSize: 15 }}>{card.flag}</span>
-              <small style={{ fontSize: 5.5 }}>{card.stampDate}</small>
-            </span>
-          </div>
+          {card.who === 'duo' ? (
+            <div className="polaroid__stamp polaroid__stamp--heart">
+              <Heart size={62} outline />
+              <span className="polaroid__stamp-heart">
+                <small style={{ fontSize: 6 }}>TOGETHER</small>
+                <small style={{ fontSize: 5.5 }}>{card.stampDate}</small>
+              </span>
+            </div>
+          ) : (
+            <div className="polaroid__stamp">
+              <span className="polaroid__stamp-ring">
+                <small style={{ fontSize: 7 }}>VISITED</small>
+                <span style={{ fontSize: 15 }}>{card.flag}</span>
+                <small style={{ fontSize: 5.5 }}>{card.stampDate}</small>
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="polaroid__caption">
@@ -61,6 +72,12 @@ export function CountryCard({
               {card.whoLabel}
             </span>
           </div>
+          {card.milestone && (
+            <div className="polaroid__milestone">
+              <Heart size={9} />
+              {card.milestone}
+            </div>
+          )}
         </div>
       </button>
     </div>
