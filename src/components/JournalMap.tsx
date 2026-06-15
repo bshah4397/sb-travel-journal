@@ -1,5 +1,6 @@
 import { palette } from '@/theme/tokens';
 import type { JournalModel } from '@/lib/model';
+import { Heart } from './Doodles';
 
 /**
  * Aged map panel: dotted grid, dashed route lines between visited countries,
@@ -33,12 +34,31 @@ export function JournalMap({ model }: { model: JournalModel }) {
         ))}
       </svg>
 
+      {/* love hearts strung along the journey between countries */}
+      {mapLinks.map((lk, i) => (
+        <span
+          key={`h${i}`}
+          className="map-heart"
+          style={
+            {
+              left: `${(lk.x1 + lk.x2) / 2}%`,
+              top: `${(lk.y1 + lk.y2) / 2}%`,
+              ['--r']: `${i % 2 ? 12 : -10}deg`,
+              animationDelay: `${i * 0.3}s`,
+            } as React.CSSProperties
+          }
+        >
+          <Heart size={12} />
+        </span>
+      ))}
+
       {mapPins.map((pin) => (
         <div key={pin.name} className="map-pin" style={{ left: pin.left, top: pin.top }}>
           <span className="map-pin__pulse" style={{ animationDelay: pin.delay }} />
           <span className="map-pin__dot" />
           <span className="map-pin__label">
             {pin.flag} {pin.name}
+            {pin.isDuo && <span className="map-pin__heart">♥</span>}
           </span>
         </div>
       ))}
@@ -65,7 +85,7 @@ export function JournalMap({ model }: { model: JournalModel }) {
         </div>
       </div>
 
-      <span className="map-label">the map so far ✈</span>
+      <span className="map-label">the map so far ✈ ♥</span>
     </div>
   );
 }

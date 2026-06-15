@@ -8,6 +8,7 @@ import { CountdownCard } from '@/components/CountdownCard';
 import { JournalMap } from '@/components/JournalMap';
 import { CountryCard, GhostCard } from '@/components/CountryCard';
 import { CountryModal } from '@/components/CountryModal';
+import { Heart, SheetDoodles } from '@/components/Doodles';
 import '@/styles/journal.css';
 
 /** Ticking wall clock — one update per second. */
@@ -66,6 +67,7 @@ export function JournalPage({ view }: { view: ViewKey }) {
 
         <div className="sheet">
           <div className="sheet__border" />
+          <SheetDoodles />
 
           {/* ── NAV ── */}
           <nav className="nav">
@@ -175,6 +177,7 @@ export function JournalPage({ view }: { view: ViewKey }) {
           <section className="section" style={{ paddingTop: 4, paddingBottom: 28 }}>
             <div className="sec-head">
               <span className="sec-head__title">Continents unlocked</span>
+              <Heart size={13} style={{ opacity: 0.55, flexShrink: 0 }} />
               <span className="sec-head__rule" />
               <span className="sec-head__meta">
                 {6 - lockedContinents} OF 6 · ANTARCTICA AWAITS
@@ -230,6 +233,7 @@ export function JournalPage({ view }: { view: ViewKey }) {
               <div>
                 <div className="sec-head">
                   <span className="sec-head__title">Sticker badges</span>
+                  <Heart size={13} style={{ opacity: 0.55, flexShrink: 0 }} />
                   <span className="sec-head__rule" />
                   <span className="sec-head__meta">{model.achUnlocked} EARNED</span>
                 </div>
@@ -258,6 +262,7 @@ export function JournalPage({ view }: { view: ViewKey }) {
               <div>
                 <div className="sec-head">
                   <span className="sec-head__title">Trip notes</span>
+                  <Heart size={13} style={{ opacity: 0.55, flexShrink: 0 }} />
                   <span className="sec-head__rule" />
                 </div>
                 <div className="notes-list">

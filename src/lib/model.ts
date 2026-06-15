@@ -52,6 +52,8 @@ export interface MapPin {
   flag: string;
   name: string;
   delay: string;
+  /** Visited together — gets a love heart on the map. */
+  isDuo: boolean;
 }
 
 export interface MapLink {
@@ -224,6 +226,7 @@ export function buildModel(view: ViewKey): JournalModel {
     flag: c.flag,
     name: c.name,
     delay: `${i * 0.4}s`,
+    isDuo: c.who === 'duo',
   }));
   const mapLinks: MapLink[] = [];
   for (let i = 0; i < visible.length - 1; i++) {
