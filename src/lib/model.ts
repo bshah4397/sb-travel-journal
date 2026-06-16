@@ -82,6 +82,7 @@ export interface CardModel {
   contColor: string;
   month: string;
   stampDate: string;
+  year: number;
   who: Traveller;
   whoLabel: string;
   whoBg: string;
@@ -260,6 +261,7 @@ export function buildModel(view: ViewKey): JournalModel {
       contColor: continentColors[c.continent],
       month: fmtMonth(c.dateVisited),
       stampDate: fmtStamp(c.dateVisited),
+      year: new Date(c.dateVisited).getFullYear(),
       who: c.who,
       whoLabel: who.label,
       whoBg: who.bg,

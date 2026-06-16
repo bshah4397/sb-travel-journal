@@ -38,23 +38,14 @@ export function CountryCard({
           <span className="polaroid__corner polaroid__corner--br" />
           <span className="polaroid__no">No. {card.nn}</span>
 
-          {card.who === 'duo' ? (
-            <div className="polaroid__stamp polaroid__stamp--heart">
-              <Heart size={62} outline />
-              <span className="polaroid__stamp-heart">
-                <small style={{ fontSize: 6 }}>TOGETHER</small>
-                <small style={{ fontSize: 5.5 }}>{card.stampDate}</small>
-              </span>
-            </div>
-          ) : (
-            <div className="polaroid__stamp">
-              <span className="polaroid__stamp-ring">
-                <small style={{ fontSize: 7 }}>VISITED</small>
-                <span style={{ fontSize: 15 }}>{card.flag}</span>
-                <small style={{ fontSize: 5.5 }}>{card.stampDate}</small>
-              </span>
-            </div>
-          )}
+          <div
+            className={`polaroid__stamp polaroid__stamp--${card.who === 'duo' ? 'duo' : 'solo'}`}
+          >
+            <span className="polaroid__stamp-country">{card.name}</span>
+            <span className="polaroid__stamp-meta">
+              {card.who === 'duo' ? 'TOGETHER' : 'SOLO'} · {card.year}
+            </span>
+          </div>
         </div>
 
         <div className="polaroid__caption">
