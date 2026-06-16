@@ -18,6 +18,8 @@ export interface Country {
   /** Flag emoji (an SVG flag could be swapped in later). */
   flag: string;
   continent: Continent;
+  /** ISO 3166-1 numeric code, used to match the country on the world map. */
+  iso: number;
   /** ISO date the country was visited. */
   dateVisited: string;
   /** Who was there. `duo` = both together. */
@@ -52,6 +54,7 @@ export interface Country {
 export const COUNTRIES: Country[] = [
   {
     id: 'uae',
+    iso: 784,
     name: 'Dubai',
     flag: '🇦🇪',
     continent: 'Asia',
@@ -66,6 +69,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'indonesia',
+    iso: 360,
     name: 'Bali',
     flag: '🇮🇩',
     continent: 'Asia',
@@ -79,6 +83,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'singapore',
+    iso: 702,
     name: 'Singapore',
     flag: '🇸🇬',
     continent: 'Asia',
@@ -92,6 +97,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'australia',
+    iso: 36,
     name: 'Australia',
     flag: '🇦🇺',
     continent: 'Oceania',
@@ -105,6 +111,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'india',
+    iso: 356,
     name: 'India',
     flag: '🇮🇳',
     continent: 'Asia',
@@ -119,6 +126,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'spain',
+    iso: 724,
     name: 'Spain',
     flag: '🇪🇸',
     continent: 'Europe',
@@ -132,6 +140,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'england',
+    iso: 826,
     name: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     continent: 'Europe',
@@ -145,6 +154,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'scotland',
+    iso: 826,
     name: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     continent: 'Europe',
@@ -158,6 +168,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'usa',
+    iso: 840,
     name: 'United States',
     flag: '🇺🇸',
     continent: 'Americas',
@@ -172,6 +183,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'canada',
+    iso: 124,
     name: 'Canada',
     flag: '🇨🇦',
     continent: 'Americas',
@@ -185,6 +197,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'italy',
+    iso: 380,
     name: 'Italy',
     flag: '🇮🇹',
     continent: 'Europe',
@@ -198,6 +211,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'vatican',
+    iso: 336,
     name: 'Vatican City',
     flag: '🇻🇦',
     continent: 'Europe',
@@ -211,6 +225,7 @@ export const COUNTRIES: Country[] = [
   },
   {
     id: 'latvia',
+    iso: 428,
     name: 'Latvia',
     flag: '🇱🇻',
     continent: 'Europe',
