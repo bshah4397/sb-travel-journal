@@ -71,14 +71,14 @@ export const washiTape = [
 ] as const;
 
 export const fonts = {
-  /** Bold uppercase display, big titles & headers (MEMORIES/ROAD-TRIP style). */
-  display: "'Oswald', sans-serif",
-  /** Signature script, personal accents (names, tagline, diary). */
-  script: "'Sacramento', cursive",
-  /** Typewriter labels / meta. */
+  /** Sans display, big titles & headers (Montserrat, various weights). */
+  display: "'Montserrat', sans-serif",
+  /** Signature script, personal accents (names, tagline, diary headers). */
+  script: "'Allura', cursive",
+  /** Typewriter labels / meta (stamps, tickets). */
   mono: "'Special Elite', monospace",
   /** Body / numerals. */
-  body: "'Lato', system-ui, sans-serif",
+  body: "'Montserrat', system-ui, sans-serif",
 } as const;
 
 /** Total countries in the challenge. */
