@@ -71,7 +71,7 @@ const PIN_COORDS: Record<string, [number, number]> = {
 };
 
 export function JournalMap({ model }: { model: JournalModel }) {
-  const { ringOffset, count, view } = model;
+  const { view } = model;
 
   const visited = countriesForView(view);
   const fillByIso = new Map<string, string>();
@@ -131,28 +131,6 @@ export function JournalMap({ model }: { model: JournalModel }) {
           </g>
         ))}
       </svg>
-
-      <div className="map-seal">
-        <svg width="112" height="112" viewBox="0 0 160 160">
-          <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(74,58,40,.16)" strokeWidth="11" />
-          <circle
-            cx="80"
-            cy="80"
-            r="70"
-            fill="none"
-            stroke="var(--accent-ink)"
-            strokeWidth="11"
-            strokeLinecap="round"
-            strokeDasharray="440"
-            strokeDashoffset={ringOffset}
-            style={{ animation: 'drawRing 1.3s cubic-bezier(.2,.8,.2,1)' }}
-          />
-        </svg>
-        <div className="map-seal__center">
-          <span className="map-seal__num">{count}</span>
-          <span className="map-seal__cap">OF 30</span>
-        </div>
-      </div>
 
       <span className="map-label">the map so far ✈ ♥</span>
     </div>

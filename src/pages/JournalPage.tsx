@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COUNTRIES, RACERS } from '@/data/countries';
 import { countdown, countriesForView } from '@/lib/journal';
-import { PassportTracker, type PassportRacer } from '@/components/PassportTracker';
 import { buildModel } from '@/lib/model';
 import { TARGET_COUNT, viewThemes, type ViewKey } from '@/theme/tokens';
 import { CountdownCard } from '@/components/CountdownCard';
@@ -41,30 +40,28 @@ export function JournalPage({ view }: { view: ViewKey }) {
   const cdB = countdown(RACERS.bhavya.turns30, now);
   const cdS = countdown(RACERS.shraddha.turns30, now);
 
-  const passportRacers: PassportRacer[] = [
-    {
-      name: RACERS.bhavya.name,
-      initial: RACERS.bhavya.initial,
-      count: countriesForView('bhavya').length,
-      target: TARGET_COUNT,
-      days: cdB.days,
-      cover: '#F1DCE4',
-      bar: '#C98CA6',
-      rot: '-3deg',
-      delay: '0s',
-    },
-    {
-      name: RACERS.shraddha.name,
-      initial: RACERS.shraddha.initial,
-      count: countriesForView('shraddha').length,
-      target: TARGET_COUNT,
-      days: cdS.days,
-      cover: '#E7DCF0',
-      bar: '#9B7FC4',
-      rot: '3deg',
-      delay: '0.12s',
-    },
-  ];
+  // Per-person markers riding the shared cumulative progress bar (Together view).
+  const trackMarkers =
+    view === 'together'
+      ? [
+          {
+            initial: RACERS.bhavya.initial,
+            name: RACERS.bhavya.name,
+            count: countriesForView('bhavya').length,
+            days: cdB.days,
+            cover: '#F1DCE4',
+            place: 'above' as const,
+          },
+          {
+            initial: RACERS.shraddha.initial,
+            name: RACERS.shraddha.name,
+            count: countriesForView('shraddha').length,
+            days: cdS.days,
+            cover: '#E7DCF0',
+            place: 'below' as const,
+          },
+        ]
+      : [];
 
   const cssVars = {
     ['--accent']: theme.mid,
@@ -154,15 +151,29 @@ export function JournalPage({ view }: { view: ViewKey }) {
                   <p className="hero-sub">{model.heroSub}</p>
                 </div>
 
-                <div>
+                <div className="progress-block">
                   <div className="progress__head">
                     <span className="progress__label">Countries logged</span>
                     <span className="progress__count">
                       <b>{model.count}</b> of 30
                     </span>
                   </div>
-                  <div className="progress__track">
-                    <div className="progress__fill" style={{ width: `${model.progressPct}%` }} />
+                  <div className="progress__track-wrap">
+                    <div className="progress__track">
+                      <div className="progress__fill" style={{ width: `${model.progressPct}%` }} />
+                    </div>
+                    {trackMarkers.map((m) => (
+                      <div
+                        key={m.initial}
+                        className={`bar-marker bar-marker--${m.place}`}
+                        style={{ left: `${(m.count / TARGET_COUNT) * 100}%`, ['--cover' as string]: m.cover }}
+                        title={`${m.name}: ${m.count} of ${TARGET_COUNT} · ${m.days} days`}
+                      >
+                        {m.place === 'below' && <span className="bar-marker__stem" />}
+                        <span className="bar-marker__badge">{m.initial}</span>
+                        {m.place === 'above' && <span className="bar-marker__stem" />}
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -206,9 +217,6 @@ export function JournalPage({ view }: { view: ViewKey }) {
               ))}
             </div>
           </section>
-
-          {/* ── PASSPORT TRACKERS (Together only) ── */}
-          {view === 'together' && <PassportTracker racers={passportRacers} />}
 
           {/* ── CONTINENTS ── */}
           <section className="section" style={{ paddingTop: 4, paddingBottom: 28 }}>
