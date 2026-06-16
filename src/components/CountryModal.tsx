@@ -86,22 +86,28 @@ export function CountryModal({
               <span className="chip chip--km">{country.km.toLocaleString()} KM AWAY</span>
             </div>
 
-            <div className="modal__snaps-head">Both travellers' snaps</div>
+            <div className="modal__snaps-head">
+              {country.who === 'duo' ? "Both travellers' snaps" : 'A memory from the trip'}
+            </div>
             <div className="modal__snaps">
-              <div className="snap" style={{ transform: 'rotate(-2deg)' }}>
-                <span className="snap__tape" style={{ background: '#92AEC6', transform: 'translateX(-50%) rotate(-5deg)' }} />
-                <div style={{ position: 'relative', height: 108 }}>
-                  <PhotoSlot src={country.photos?.bhavya} alt="Bhavya's shot" hint="BHAVYA'S PHOTO" />
+              {(country.who === 'duo' || country.who === 'bhavya') && (
+                <div className="snap" style={{ transform: 'rotate(-2deg)' }}>
+                  <span className="snap__tape" style={{ background: '#92AEC6', transform: 'translateX(-50%) rotate(-5deg)' }} />
+                  <div style={{ position: 'relative', height: 108 }}>
+                    <PhotoSlot src={country.photos?.bhavya} alt="Bhavya's shot" hint="BHAVYA'S PHOTO" />
+                  </div>
+                  <div className="snap__cap">Bhavya's shot</div>
                 </div>
-                <div className="snap__cap">Bhavya's shot</div>
-              </div>
-              <div className="snap" style={{ transform: 'rotate(1.8deg)' }}>
-                <span className="snap__tape" style={{ background: '#BBA0C6', transform: 'translateX(-50%) rotate(4deg)' }} />
-                <div style={{ position: 'relative', height: 108 }}>
-                  <PhotoSlot src={country.photos?.shraddha} alt="Shraddha's shot" hint="SHRADDHA'S PHOTO" />
+              )}
+              {(country.who === 'duo' || country.who === 'shraddha') && (
+                <div className="snap" style={{ transform: 'rotate(1.8deg)' }}>
+                  <span className="snap__tape" style={{ background: '#BBA0C6', transform: 'translateX(-50%) rotate(4deg)' }} />
+                  <div style={{ position: 'relative', height: 108 }}>
+                    <PhotoSlot src={country.photos?.shraddha} alt="Shraddha's shot" hint="SHRADDHA'S PHOTO" />
+                  </div>
+                  <div className="snap__cap">Shraddha's shot</div>
                 </div>
-                <div className="snap__cap">Shraddha's shot</div>
-              </div>
+              )}
             </div>
           </div>
         </div>

@@ -270,7 +270,7 @@ export function buildModel(view: ViewKey): JournalModel {
       tapeColor: washiTape[i % washiTape.length],
       tapeRot: i % 2 ? '4deg' : '-5deg',
       slotId: `slot-${view}-${c.id}`,
-      photo: photoFor(c, view),
+      photo: photoFor(c),
       milestone: c.milestone,
     };
   });
@@ -386,12 +386,16 @@ function mostRecentLabel(list: Country[]): string {
   return `${last.name} · ${daysSince} days ago`;
 }
 
-/** Resolve the souvenir photo for a card in a given view (undefined → placeholder). */
-function photoFor(c: Country, view: ViewKey): string | undefined {
+/**
+ * Hero souvenir for a card: the shared shot, falling back to the solo
+ * traveller's own photo when there's no shared one (undefined → placeholder).
+ */
+function photoFor(c: Country): string | undefined {
   if (!c.photos) return undefined;
-  if (view === 'bhavya') return c.photos.bhavya ?? c.photos.shared;
-  if (view === 'shraddha') return c.photos.shraddha ?? c.photos.shared;
-  return c.photos.shared;
+  if (c.photos.shared) return c.photos.shared;
+  if (c.who === 'bhavya') return c.photos.bhavya;
+  if (c.who === 'shraddha') return c.photos.shraddha;
+  return undefined;
 }
 
 export { countryXp };
