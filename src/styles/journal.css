@@ -349,14 +349,14 @@
   transition: left 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .bar-marker__pp {
-  width: 26px;
+  width: 30px;
   height: auto;
   display: block;
   filter: drop-shadow(0 2px 3px rgba(74, 58, 40, 0.25));
 }
 .bar-marker__pp-initial {
   font-family: 'Allura', cursive;
-  font-size: 14px;
+  font-size: 15px;
   fill: #3b3b3b;
 }
 .bar-marker__stem {

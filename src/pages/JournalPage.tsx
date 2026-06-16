@@ -22,18 +22,30 @@ function useNow() {
   return now;
 }
 
-/** A tiny passport (cover + globe + initial) used as a progress-bar marker. */
+/**
+ * A pair of fanned passports (back one peeking behind) with the initial on
+ * the cover and a name-line pill, used as a progress-bar marker.
+ */
 function PassportPin({ initial }: { initial: string }) {
   return (
-    <svg className="bar-marker__pp" viewBox="0 0 28 34" aria-hidden="true">
-      <rect x="2" y="2" width="24" height="30" rx="4" fill="var(--cover)" stroke="#3b3b3b" strokeWidth="1.6" />
-      <rect x="4.6" y="4.6" width="18.8" height="24.8" rx="2.5" fill="none" stroke="#3b3b3b" strokeWidth="0.6" opacity="0.4" />
-      <circle cx="14" cy="11" r="3.6" fill="none" stroke="#3b3b3b" strokeWidth="1" />
-      <ellipse cx="14" cy="11" rx="1.5" ry="3.6" fill="none" stroke="#3b3b3b" strokeWidth="0.7" />
-      <line x1="10.4" y1="11" x2="17.6" y2="11" stroke="#3b3b3b" strokeWidth="0.7" />
-      <text x="14" y="27" textAnchor="middle" className="bar-marker__pp-initial">
+    <svg className="bar-marker__pp" viewBox="0 0 30 36" aria-hidden="true">
+      <rect
+        x="11"
+        y="4"
+        width="15"
+        height="23"
+        rx="3"
+        fill="var(--cover)"
+        stroke="#3b3b3b"
+        strokeWidth="1.4"
+        transform="rotate(15 18 15)"
+      />
+      <rect x="3" y="7" width="17" height="25" rx="3" fill="var(--cover)" stroke="#3b3b3b" strokeWidth="1.6" />
+      <rect x="5" y="9" width="13" height="21" rx="2" fill="none" stroke="#3b3b3b" strokeWidth="0.6" opacity="0.4" />
+      <text x="11.5" y="22" textAnchor="middle" className="bar-marker__pp-initial">
         {initial}
       </text>
+      <rect x="6.6" y="25.4" width="9.8" height="2.6" rx="1.3" fill="#3b3b3b" />
     </svg>
   );
 }
