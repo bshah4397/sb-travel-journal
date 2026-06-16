@@ -77,21 +77,28 @@ export function JournalMap({ model }: { model: JournalModel }) {
   const fillByIso = new Map<string, string>();
   visited.forEach((c) => fillByIso.set(String(c.iso), PASTEL[c.continent]));
 
-  const labels: { id: string; name: string; x: number; y: number; pin: boolean }[] = [];
+  // One mark per visited country (deduped by ISO), in chronological order so
+  // the dashed route threads the journey.
+  const marks: { iso: string; name: string; x: number; y: number; color: string }[] = [];
   const seen = new Set<string>();
-  visited.forEach((c) => {
-    const id = String(c.iso);
-    if (seen.has(id)) return;
-    seen.add(id);
-    const name = ISO_NAME[id] ?? c.name;
-    if (PRESENT.has(id)) {
-      const shape = SHAPES.find((s) => s.id === id)!;
-      labels.push({ id, name, x: shape.centroid[0], y: shape.centroid[1], pin: false });
-    } else if (PIN_COORDS[id]) {
-      const p = projection(PIN_COORDS[id]);
-      if (p) labels.push({ id, name, x: p[0], y: p[1], pin: true });
-    }
-  });
+  [...visited]
+    .sort((a, b) => (a.dateVisited < b.dateVisited ? -1 : 1))
+    .forEach((c) => {
+      const id = String(c.iso);
+      if (seen.has(id)) return;
+      seen.add(id);
+      const color = PASTEL[c.continent];
+      const name = ISO_NAME[id] ?? c.name;
+      if (PRESENT.has(id)) {
+        const shape = SHAPES.find((s) => s.id === id)!;
+        marks.push({ iso: id, name, x: shape.centroid[0], y: shape.centroid[1], color });
+      } else if (PIN_COORDS[id]) {
+        const p = projection(PIN_COORDS[id]);
+        if (p) marks.push({ iso: id, name, x: p[0], y: p[1], color });
+      }
+    });
+
+  const routeD = marks.map((m, i) => `${i ? 'L' : 'M'}${m.x.toFixed(1)} ${m.y.toFixed(1)}`).join(' ');
 
   return (
     <div className="map-panel">
@@ -103,30 +110,65 @@ export function JournalMap({ model }: { model: JournalModel }) {
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
       >
+        <defs>
+          <filter id="mapWobble">
+            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6" />
+          </filter>
+        </defs>
+
+        {/* soft watercolour fills, nudged off the inked border */}
+        <g transform="translate(1.4,2)" opacity="0.42">
+          {SHAPES.filter((s) => fillByIso.has(s.id)).map((s, i) => (
+            <path key={i} d={s.d} fill={fillByIso.get(s.id)} />
+          ))}
+        </g>
+
+        {/* stippled coastlines */}
         {SHAPES.map((s, i) => {
-          const fill = fillByIso.get(s.id);
+          const v = fillByIso.has(s.id);
           return (
             <path
               key={i}
               d={s.d}
-              fill={fill ?? '#e7dcc1'}
-              stroke={fill ? '#6b5640' : '#b6a589'}
-              strokeWidth={fill ? 0.6 : 0.4}
-              strokeLinejoin="round"
+              fill="none"
+              stroke={v ? '#6b5640' : '#b6a589'}
+              strokeWidth={v ? 0.9 : 0.5}
+              strokeDasharray={v ? '0.6 2.3' : '0.5 2.2'}
+              strokeLinecap="round"
             />
           );
         })}
 
-        {labels.map((l) => (
-          <g key={l.id}>
-            {l.pin && <circle cx={l.x} cy={l.y} r={2.2} fill="#a8432c" />}
-            <text
-              className="world-map__label"
-              x={l.x}
-              y={l.pin ? l.y - 5 : l.y}
-              textAnchor="middle"
-            >
-              {l.name}
+        {/* dashed travel route threading the journey */}
+        {marks.length > 1 && (
+          <path
+            d={routeD}
+            fill="none"
+            stroke="#a8432c"
+            strokeWidth="1"
+            strokeDasharray="2 4.5"
+            strokeLinecap="round"
+            opacity="0.5"
+            filter="url(#mapWobble)"
+          />
+        )}
+
+        {/* doodle pins + hand-lettered labels */}
+        {marks.map((m) => (
+          <g key={m.iso} transform={`translate(${m.x.toFixed(1)},${m.y.toFixed(1)})`}>
+            <g filter="url(#mapWobble)">
+              <path
+                d="M0 0 C-7 -10 -6 -18 0 -18 C6 -18 7 -10 0 0 Z"
+                fill={m.color}
+                stroke="#3b3b3b"
+                strokeWidth="1"
+                strokeLinejoin="round"
+              />
+              <circle cx="0" cy="-11.5" r="2.5" fill="#fbf7ec" stroke="#3b3b3b" strokeWidth="0.8" />
+            </g>
+            <text className="world-map__label" x="0" y="9" textAnchor="middle">
+              {m.name}
             </text>
           </g>
         ))}
