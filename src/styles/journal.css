@@ -330,15 +330,16 @@
   transition: width 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Per-person passport markers riding the cumulative bar */
+/* Per-person passport markers stacked above the cumulative bar */
 .progress-block {
-  margin: 16px 0 20px;
+  margin: 46px 0 14px;
 }
 .progress__track-wrap {
   position: relative;
 }
 .bar-marker {
   position: absolute;
+  bottom: 100%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -347,33 +348,22 @@
   pointer-events: none;
   transition: left 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.bar-marker--above {
-  bottom: 100%;
+.bar-marker__pp {
+  width: 26px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 2px 3px rgba(74, 58, 40, 0.25));
 }
-.bar-marker--below {
-  top: 100%;
-}
-.bar-marker__badge {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 27px;
-  border-radius: 4px;
-  background: var(--cover);
-  border: 1.5px solid #3b3b3b;
-  box-shadow: inset 0 0 0 1px rgba(59, 59, 59, 0.22);
+.bar-marker__pp-initial {
   font-family: 'Allura', cursive;
-  letter-spacing: 0;
-  font-size: 19px;
-  line-height: 1;
-  color: #3b3b3b;
+  font-size: 14px;
+  fill: #3b3b3b;
 }
 .bar-marker__stem {
   width: 2px;
-  height: 5px;
+  height: var(--stem, 6px);
   background: #3b3b3b;
+  opacity: 0.85;
 }
 
 .countdowns {

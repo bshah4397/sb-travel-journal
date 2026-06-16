@@ -220,7 +220,7 @@ export function buildModel(view: ViewKey): JournalModel {
         : 'Her deadline runs 114 days more generous, 26 June 2027. A little more room to roam.';
 
   const levelLabel = view === 'shraddha' ? 'LV.5 GLOBETROTTER' : 'LV.6 EXPEDITION';
-  const avatarInitials = view === 'together' ? 'BS' : view === 'bhavya' ? 'B' : 'S';
+  const avatarInitials = view === 'together' ? 'SB' : view === 'bhavya' ? 'B' : 'S';
 
   const mapPins: MapPin[] = visible.map((c, i) => ({
     left: `${c.map.x}%`,

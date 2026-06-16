@@ -22,6 +22,22 @@ function useNow() {
   return now;
 }
 
+/** A tiny passport (cover + globe + initial) used as a progress-bar marker. */
+function PassportPin({ initial }: { initial: string }) {
+  return (
+    <svg className="bar-marker__pp" viewBox="0 0 28 34" aria-hidden="true">
+      <rect x="2" y="2" width="24" height="30" rx="4" fill="var(--cover)" stroke="#3b3b3b" strokeWidth="1.6" />
+      <rect x="4.6" y="4.6" width="18.8" height="24.8" rx="2.5" fill="none" stroke="#3b3b3b" strokeWidth="0.6" opacity="0.4" />
+      <circle cx="14" cy="11" r="3.6" fill="none" stroke="#3b3b3b" strokeWidth="1" />
+      <ellipse cx="14" cy="11" rx="1.5" ry="3.6" fill="none" stroke="#3b3b3b" strokeWidth="0.7" />
+      <line x1="10.4" y1="11" x2="17.6" y2="11" stroke="#3b3b3b" strokeWidth="0.7" />
+      <text x="14" y="27" textAnchor="middle" className="bar-marker__pp-initial">
+        {initial}
+      </text>
+    </svg>
+  );
+}
+
 export function JournalPage({ view }: { view: ViewKey }) {
   const model = useMemo(() => buildModel(view), [view]);
   const theme = viewThemes[view];
@@ -40,7 +56,7 @@ export function JournalPage({ view }: { view: ViewKey }) {
   const cdB = countdown(RACERS.bhavya.turns30, now);
   const cdS = countdown(RACERS.shraddha.turns30, now);
 
-  // Per-person markers riding the shared cumulative progress bar (Together view).
+  // Per-person passport markers stacked above the shared cumulative bar (Together view).
   const trackMarkers =
     view === 'together'
       ? [
@@ -50,7 +66,7 @@ export function JournalPage({ view }: { view: ViewKey }) {
             count: countriesForView('bhavya').length,
             days: cdB.days,
             cover: '#F1DCE4',
-            place: 'above' as const,
+            level: 1,
           },
           {
             initial: RACERS.shraddha.initial,
@@ -58,7 +74,7 @@ export function JournalPage({ view }: { view: ViewKey }) {
             count: countriesForView('shraddha').length,
             days: cdS.days,
             cover: '#E7DCF0',
-            place: 'below' as const,
+            level: 0,
           },
         ]
       : [];
@@ -165,13 +181,16 @@ export function JournalPage({ view }: { view: ViewKey }) {
                     {trackMarkers.map((m) => (
                       <div
                         key={m.initial}
-                        className={`bar-marker bar-marker--${m.place}`}
-                        style={{ left: `${(m.count / TARGET_COUNT) * 100}%`, ['--cover' as string]: m.cover }}
+                        className="bar-marker"
+                        style={{
+                          left: `${(m.count / TARGET_COUNT) * 100}%`,
+                          ['--cover' as string]: m.cover,
+                          ['--stem' as string]: `${6 + m.level * 30}px`,
+                        }}
                         title={`${m.name}: ${m.count} of ${TARGET_COUNT} · ${m.days} days`}
                       >
-                        {m.place === 'below' && <span className="bar-marker__stem" />}
-                        <span className="bar-marker__badge">{m.initial}</span>
-                        {m.place === 'above' && <span className="bar-marker__stem" />}
+                        <PassportPin initial={m.initial} />
+                        <span className="bar-marker__stem" />
                       </div>
                     ))}
                   </div>
