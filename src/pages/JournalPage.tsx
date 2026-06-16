@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COUNTRIES, RACERS } from '@/data/countries';
-import { countdown } from '@/lib/journal';
+import { countdown, countriesForView } from '@/lib/journal';
+import { PassportTracker, type PassportRacer } from '@/components/PassportTracker';
 import { buildModel } from '@/lib/model';
 import { TARGET_COUNT, viewThemes, type ViewKey } from '@/theme/tokens';
 import { CountdownCard } from '@/components/CountdownCard';
@@ -39,6 +40,31 @@ export function JournalPage({ view }: { view: ViewKey }) {
 
   const cdB = countdown(RACERS.bhavya.turns30, now);
   const cdS = countdown(RACERS.shraddha.turns30, now);
+
+  const passportRacers: PassportRacer[] = [
+    {
+      name: RACERS.bhavya.name,
+      initial: RACERS.bhavya.initial,
+      count: countriesForView('bhavya').length,
+      target: TARGET_COUNT,
+      days: cdB.days,
+      cover: '#F1DCE4',
+      bar: '#C98CA6',
+      rot: '-3deg',
+      delay: '0s',
+    },
+    {
+      name: RACERS.shraddha.name,
+      initial: RACERS.shraddha.initial,
+      count: countriesForView('shraddha').length,
+      target: TARGET_COUNT,
+      days: cdS.days,
+      cover: '#E7DCF0',
+      bar: '#9B7FC4',
+      rot: '3deg',
+      delay: '0.12s',
+    },
+  ];
 
   const cssVars = {
     ['--accent']: theme.mid,
@@ -180,6 +206,9 @@ export function JournalPage({ view }: { view: ViewKey }) {
               ))}
             </div>
           </section>
+
+          {/* ── PASSPORT TRACKERS (Together only) ── */}
+          {view === 'together' && <PassportTracker racers={passportRacers} />}
 
           {/* ── CONTINENTS ── */}
           <section className="section" style={{ paddingTop: 4, paddingBottom: 28 }}>
