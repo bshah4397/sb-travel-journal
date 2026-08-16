@@ -94,7 +94,7 @@ export function CountryModal({
               {(country.who === 'duo' || country.who === 'bhavya') && (
                 <div className="snap" style={{ transform: 'rotate(-2deg)' }}>
                   <span className="snap__tape" style={{ background: '#92AEC6', transform: 'translateX(-50%) rotate(-5deg)' }} />
-                  <div style={{ position: 'relative', height: 108 }}>
+                  <div style={{ position: 'relative', aspectRatio: '1 / 1' }}>
                     <PhotoSlot src={resolvePhoto(country, 'bhavya')} alt="Bhavya's shot" hint="BHAVYA'S PHOTO" />
                   </div>
                   <div className="snap__cap">Bhavya's shot</div>
@@ -103,7 +103,7 @@ export function CountryModal({
               {(country.who === 'duo' || country.who === 'shraddha') && (
                 <div className="snap" style={{ transform: 'rotate(1.8deg)' }}>
                   <span className="snap__tape" style={{ background: '#BBA0C6', transform: 'translateX(-50%) rotate(4deg)' }} />
-                  <div style={{ position: 'relative', height: 108 }}>
+                  <div style={{ position: 'relative', aspectRatio: '1 / 1' }}>
                     <PhotoSlot src={resolvePhoto(country, 'shraddha')} alt="Shraddha's shot" hint="SHRADDHA'S PHOTO" />
                   </div>
                   <div className="snap__cap">Shraddha's shot</div>
