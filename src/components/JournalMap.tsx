@@ -15,6 +15,10 @@ import type { JournalModel } from '@/lib/model';
 const W = 640;
 const H = 380;
 
+// world-atlas uses zero-padded 3-digit ISO ids ("036"), so normalise both
+// sides before matching — otherwise any country with a code < 100 drops out.
+const iso3 = (v: string | number) => String(v).padStart(3, '0');
+
 // Precomputed once at module load: project every country to flat path data.
 const topo = worldTopo as unknown as {
   objects: { countries: unknown };
@@ -33,7 +37,7 @@ const projection = geoNaturalEarth1().fitExtent(
 );
 const pathGen = geoPath(projection);
 const SHAPES = features.map((f) => ({
-  id: String(f.id),
+  id: iso3(f.id ?? ''),
   d: pathGen(f as never) || '',
   centroid: pathGen.centroid(f as never),
 }));
@@ -50,10 +54,10 @@ const PASTEL: Record<Continent, string> = {
 
 // Nice display names per ISO (collapses England + Scotland into one UK label).
 const ISO_NAME: Record<string, string> = {
+  '036': 'Australia',
   '784': 'UAE',
   '360': 'Indonesia',
   '702': 'Singapore',
-  '36': 'Australia',
   '356': 'India',
   '724': 'Spain',
   '826': 'United Kingdom',
@@ -75,7 +79,7 @@ export function JournalMap({ model }: { model: JournalModel }) {
 
   const visited = countriesForView(view);
   const fillByIso = new Map<string, string>();
-  visited.forEach((c) => fillByIso.set(String(c.iso), PASTEL[c.continent]));
+  visited.forEach((c) => fillByIso.set(iso3(c.iso), PASTEL[c.continent]));
 
   // One mark per visited country (deduped by ISO), in chronological order so
   // the dashed route threads the journey.
@@ -84,7 +88,7 @@ export function JournalMap({ model }: { model: JournalModel }) {
   [...visited]
     .sort((a, b) => (a.dateVisited < b.dateVisited ? -1 : 1))
     .forEach((c) => {
-      const id = String(c.iso);
+      const id = iso3(c.iso);
       if (seen.has(id)) return;
       seen.add(id);
       const color = PASTEL[c.continent];
