@@ -21,6 +21,7 @@ import {
   type ViewKey,
 } from '@/theme/tokens';
 import { countriesForView, countryXp, statsForView } from './journal';
+import { resolvePhoto } from './photos';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -391,11 +392,11 @@ function mostRecentLabel(list: Country[]): string {
  * traveller's own photo when there's no shared one (undefined → placeholder).
  */
 function photoFor(c: Country): string | undefined {
-  if (!c.photos) return undefined;
-  if (c.photos.shared) return c.photos.shared;
-  if (c.who === 'bhavya') return c.photos.bhavya;
-  if (c.who === 'shraddha') return c.photos.shraddha;
-  return undefined;
+  const shared = resolvePhoto(c, 'shared');
+  if (shared) return shared;
+  if (c.who === 'bhavya') return resolvePhoto(c, 'bhavya');
+  if (c.who === 'shraddha') return resolvePhoto(c, 'shraddha');
+  return resolvePhoto(c, 'bhavya') ?? resolvePhoto(c, 'shraddha');
 }
 
 export { countryXp };

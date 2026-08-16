@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import type { Country } from '@/data/countries';
 import { continentColors } from '@/theme/tokens';
 import { countryXp, fmtFull } from '@/lib/model';
+import { resolvePhoto } from '@/lib/photos';
 import { PhotoSlot } from './PhotoSlot';
 import { Heart } from './Doodles';
 
@@ -56,7 +57,7 @@ export function CountryModal({
               style={{ background: contColor, opacity: 0.7, width: 96, height: 26, top: -10, transform: 'translateX(-50%) rotate(-4deg)' }}
             />
             <div className="modal__hero-photo">
-              <PhotoSlot src={country.photos?.shared} alt={`${country.name} shared souvenir`} hint="SHARED SOUVENIR" />
+              <PhotoSlot src={resolvePhoto(country, 'shared')} alt={`${country.name} shared souvenir`} hint="SHARED SOUVENIR" />
               <span className="polaroid__corner polaroid__corner--tl" />
             </div>
             <div className="modal__hero-cap">
@@ -94,7 +95,7 @@ export function CountryModal({
                 <div className="snap" style={{ transform: 'rotate(-2deg)' }}>
                   <span className="snap__tape" style={{ background: '#92AEC6', transform: 'translateX(-50%) rotate(-5deg)' }} />
                   <div style={{ position: 'relative', height: 108 }}>
-                    <PhotoSlot src={country.photos?.bhavya} alt="Bhavya's shot" hint="BHAVYA'S PHOTO" />
+                    <PhotoSlot src={resolvePhoto(country, 'bhavya')} alt="Bhavya's shot" hint="BHAVYA'S PHOTO" />
                   </div>
                   <div className="snap__cap">Bhavya's shot</div>
                 </div>
@@ -103,7 +104,7 @@ export function CountryModal({
                 <div className="snap" style={{ transform: 'rotate(1.8deg)' }}>
                   <span className="snap__tape" style={{ background: '#BBA0C6', transform: 'translateX(-50%) rotate(4deg)' }} />
                   <div style={{ position: 'relative', height: 108 }}>
-                    <PhotoSlot src={country.photos?.shraddha} alt="Shraddha's shot" hint="SHRADDHA'S PHOTO" />
+                    <PhotoSlot src={resolvePhoto(country, 'shraddha')} alt="Shraddha's shot" hint="SHRADDHA'S PHOTO" />
                   </div>
                   <div className="snap__cap">Shraddha's shot</div>
                 </div>
